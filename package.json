@@ -1,0 +1,58 @@
+{
+  "name": "noon-io",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Easy io for the Web MIDI API",
+  "author": "Antoine Cordier",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-cordier/midi-parse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/a-cordier/midi-parse/issues"
+  },
+  "keywords": [
+    "web",
+    "midi",
+    "music"
+  ],
+  "homepage": "https://github.com/a-cordier/midi-parse#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clean": "npx rimraf dist",
+    "test": "ava",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "@ava/typescript": "^3.0.1",
+    "ava": "^4.0.1",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "tsc-alias": "^1.6.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "tsconfig-paths": "^3.12.0",
+    "tscpaths": "^0.0.9"
+  },
+  "ava": {
+    "typescript": {
+      "rewritePaths": {
+        "src/": "dist/"
+      },
+      "compile": "tsc"
+    }
+  }
+}
