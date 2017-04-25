@@ -1,0 +1,8 @@
+node_modules
+dist
+*.swp
+*.log
+.sass-cache
+*.iml
+.idea
+.nyc_output/
