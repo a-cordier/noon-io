@@ -62,10 +62,9 @@ export function newMIDIUint8Array(): Uint8Array {
     return new Uint8Array(MIDI_MESSAGE_MAX_BYTES);
 }
 
-
 export function getDataView(bytes = [0]): DataView {
-	const buffer = new ArrayBuffer(bytes.length);
-	const view = new DataView(buffer);
+    const buffer = new ArrayBuffer(bytes.length);
+    const view = new DataView(buffer);
     bytes.forEach((b, i) => view.setUint8(i, b));
-	return view;
+    return view;
 }
