@@ -7,5 +7,5 @@ export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8A
         const write = WRITERS.get(message.status);
         return write(message);
     }
-    throw new Error(`Unknown MIDI Status ${message.status}`);
+    throw new RangeError(`Unknown MIDI Status ${message.status}`);
 }

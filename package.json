@@ -1,23 +1,23 @@
 {
   "name": "noon-io",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Easy io for the Web MIDI API",
   "author": "Antoine Cordier",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a-cordier/midi-parse.git"
+    "url": "git+https://github.com/a-cordier/noon-io.git"
   },
   "bugs": {
-    "url": "https://github.com/a-cordier/midi-parse/issues"
+    "url": "https://github.com/a-cordier/noon-io/issues"
   },
   "keywords": [
     "web",
     "midi",
     "music"
   ],
-  "homepage": "https://github.com/a-cordier/midi-parse#readme",
+  "homepage": "https://github.com/a-cordier/noon-io#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

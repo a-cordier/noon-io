@@ -5,46 +5,51 @@ Easy io for the [Web MIDI API](https://www.w3.org/TR/webmidi/)
 🚀 Getting started
 --
 
-## Sending a message
+## Install
+
+```bash
+npm i noon-io
+```
+
+## Send MIDI messages
 
 Send a A4 `NOTE ON` message on all available MIDI outputs
 
 
 ```typescript
-import { MidiStatus, writeMidiMessage } from 'noon-io';
+import * as NIO from 'noon-io';
 
-// get access to the Web MIDI API
-this.midiAccess = await navigator.requestMIDIAccess();
+// Gain access to the Web MIDI API
+const midiAccess = await navigator.requestMIDIAccess();
 
-// send a Note On message over all available outputs on channel 2
-for (const output of this.midiAccess.outputs.values()) {
+// Send a Note On message over all available outputs on channel 2
+for (const output of midiAccess.outputs.values()) {
     const noteOnMessage = {
-        status: MidiStatus.NOTE_ON,
+        status: NIO.MidiStatus.NOTE_ON,
         channel: 2,
         data: {
             value: 69, // A4
             velocity: 127
         }
     };
-    output.send(writeMidiMessage(noteOnMessage));
+    output.send(NIO.writeMidiMessage(noteOnMessage));
 }
 ```
 
-### Reading a message
+## Read MIDI messages
 
 Print messages received from any available MIDI input in the console.
 
 ```typescript
-import { MidiStatus, readMidiMessage } from 'noon-io';
+import * as NIO from 'noon-io';
 
-// get access to the Web MIDI API
-this.midiAccess = await navigator.requestMIDIAccess();
+// Gain access to the Web MIDI API
+const midiAccess = await navigator.requestMIDIAccess();
 
-// Log received messages for all available inputs
-for (const input of this.midiAccess.input.values()) {
+// Log messages received from any available input
+for (const input of midiAccess.inputs.values()) {
     input.onmidimessage = (msg) => {
-        const readableMessage = readMidiMessage(msg.data);
-        console.log(readableMessage);
+        console.log(NIO.readMidiMessage(msg.data));
     };
 }
 ```
