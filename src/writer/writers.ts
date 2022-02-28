@@ -6,14 +6,13 @@ const WRITERS = new Map<API.MidiStatus, LIB.MidiMessageWriter<API.MidiData>>();
 
 function createWriter<T>(
     serializer: LIB.MidiDataSerializer<T>,
-    writeChannelStatusByte: LIB.StatusWriter,
+    writeStatusByte: LIB.StatusWriter,
 ): LIB.MidiMessageWriter<T> {
     return function (message: API.MidiMessage<T>): Uint8Array {
         const data = LIB.newMIDIUint8Array();
         const view = new DataView(data.buffer);
-        const offset = message.offset || 0;
-        view.setUint8(offset, writeChannelStatusByte(message.status, message.channel));
-        serializer.serialize(view, message.data, offset + 1);
+        const ofs = writeStatusByte(view, message.offset || 0, message.status, message.channel);
+        serializer.serialize(view, message.data, ofs);
         return data;
     };
 }
@@ -52,6 +51,11 @@ WRITERS.set(
 WRITERS.set(
     API.MidiStatus.PROGRAM_CHANGE,
     createWriter<API.NumberValue>(new IMP.NumberValueSerializer(), LIB.writeChannelStatusByte),
+);
+
+WRITERS.set(
+    API.MidiStatus.PITCH_BEND,
+    createWriter<API.MidiPitchBend>(new IMP.PitchBendSerializer(), LIB.writeChannelStatusByte),
 );
 
 export { WRITERS };

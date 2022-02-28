@@ -65,7 +65,7 @@ export interface StatusWriter {
      * @param channel The MIDI channel to add to the MIDI status in case of a channel message
      * @returns The actual message status deduced from status and channel
      */
-    (status: API.MidiStatus, channel?: number): number;
+    (view: DataView, offset: number, status: API.MidiStatus, channel?: number): number;
 }
 
 /**

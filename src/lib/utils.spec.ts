@@ -66,13 +66,18 @@ test('newMIDIUint8Array should return a Uint8Array of length 3', (t: ExecutionCo
     t.is(3, UTILS.newMIDIUint8Array().length);
 });
 
-test('writeChannelStatusByte should return a Note On MIDI status directed to channel 1', (t: ExecutionContext<unknown>) => {
-    const midiStatus = UTILS.writeChannelStatusByte(MidiStatus.NOTE_ON, 1);
-    t.is(0b10010000, midiStatus);
+test('writeChannelStatusByte should set a Note On MIDI status directed to channel 1 on view and have written 1 byte', (t: ExecutionContext<unknown>) => {
+    const view = new DataView(UTILS.newMIDIUint8Array().buffer);
+    const offset = UTILS.writeChannelStatusByte(view, 0, MidiStatus.NOTE_ON, 1);
+    t.is(0b10010000, view.getUint8(0));
+    t.is(1, offset)
 });
 
-test('writeSystemStatusByte should be an identity function', (t: ExecutionContext<unknown>) => {
-    t.is(MidiStatus.SET_TEMPO, UTILS.writeSystemStatusByte(MidiStatus.SET_TEMPO));
+test('writeSystemStatusByte should set system marker byte and status and have written 1 byte', (t: ExecutionContext<unknown>) => {
+    const view = new DataView(UTILS.newMIDIUint8Array().buffer);
+    const offset = UTILS.writeSystemStatusByte(view, 0, MidiStatus.SET_TEMPO);
+    t.is(MidiStatus.SET_TEMPO, view.getUint8(0));
+    t.is(1, offset);
 });
 
 test('isSystemMessage should return true for all bits in byte are set to 1', (t: ExecutionContext<unknown>) => {
