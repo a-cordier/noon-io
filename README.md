@@ -63,18 +63,19 @@ for (const input of midiAccess.inputs.values()) {
 
 |Type|Reader|Writer|Status
 |:-:|:-:|:-:|:--|
-|NOTE_ON|:white_check_mark:|:white_check_mark:|Only write has been tested on a MIDI port
-|NOTE_OFF|:white_check_mark:|:white_check_mark:|Only write has been tested on a MIDI port
+|NOTE_ON|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
+|NOTE_OFF|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
+|PITCH_BEND|:white_check_mark:|:x:|Read and write have been tested on a MIDI port
+|CONTROL_CHANGE|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
+
 |NOTE_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
-|CONTROL_CHANGE|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 |CHANNEL_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
-|PITCH_BEND|:white_check_mark:|:x:|Read has not been tested, write is not implemented
+|PROGRAM_CHANGE|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 
 ## System Messages
 
 |Type|Reader|Writer|Status
 |:-:|:-:|:-:|:--|
-|PROGRAM_CHANGE|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 |SYSEX_MESSAGE|:white_check_mark:|:x:|Read has not been tested, write is not implemented
 |SEQUENCE_NAME|:white_check_mark:|:x:|Read has not been tested, write is not implemented
 |INSTRUMENT_NAME|:white_check_mark:|:x:|Read has not been tested, write is not implemented

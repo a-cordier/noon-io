@@ -50,12 +50,15 @@ export function isRunningStatusChange(view: DataView, offset: number) {
     return 0 !== unmasked;
 }
 
-export function writeChannelStatusByte(status: API.MidiStatus, channel: number): number {
-    return (status << 4) | (channel - 1);
+export function writeChannelStatusByte(view: DataView, offset: number, status: API.MidiStatus, channel: number): number {
+    const midiStatus =  (status << 4) | (channel - 1);
+    view.setUint8(offset, midiStatus);
+    return offset + 1;
 }
 
-export function writeSystemStatusByte(status: API.MidiStatus): number {
-    return status;
+export function writeSystemStatusByte(view: DataView, offset: number, status: API.MidiStatus): number {
+    view.setUint8(offset, status);;
+    return offset + 1;
 }
 
 export function newMIDIUint8Array(): Uint8Array {
