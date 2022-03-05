@@ -1,7 +1,7 @@
 {
   "name": "noon-io",
   "type": "module",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Easy io for the Web MIDI API",
   "author": "Antoine Cordier",
   "license": "MIT",
