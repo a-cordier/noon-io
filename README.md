@@ -40,6 +40,19 @@ for (const output of midiAccess.outputs.values()) {
 }
 ```
 
+## Using factory functions
+
+For one dedicated channel, noon-io exports factory functions for more concise messages
+
+```typescript
+// send a CC of 80 for control 71
+output.send(NIO.channel(2).controlChange(71, 80));
+// send a A4 note on message with a velocity of 120
+output.send(NIO.channel(2).noteOn(69, 120));
+// send the subsequent note off message for our A4 note
+output.send(NIO.channel(2).noteOff(69));
+```
+
 ## Read MIDI messages
 
 Print messages received from any available MIDI input in the console.
