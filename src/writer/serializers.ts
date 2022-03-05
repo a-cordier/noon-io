@@ -1,5 +1,5 @@
-import * as API from '../api/index.js';
-import * as LIB from '../lib/index.js';
+import * as API from '../api/factory.js';
+import * as LIB from '../lib/factory.js';
 
 export class NoteTriggerSerializer implements LIB.MidiDataSerializer<API.MidiNote> {
     serialize(view: DataView, offset: number, note: API.MidiNote): void {
