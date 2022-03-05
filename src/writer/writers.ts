@@ -9,7 +9,7 @@ function createWriter<T>(
     serializer: LIB.MidiDataSerializer<T>,
     size: number,
 ): LIB.MidiMessageWriter<T> {
-    return function (message: API.MidiMessage<T>): Uint8Array {
+    return (message: API.MidiMessage<T>): Uint8Array => {
         const data = new Uint8Array(size);
         const view = new DataView(data.buffer);
         const status = statusEncoder(message.status, message.channel);
