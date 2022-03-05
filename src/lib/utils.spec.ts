@@ -62,22 +62,12 @@ test('readVariableLengthQuantity should return 8192 for 0xC0|0x00', (t: Executio
     t.is(8192, UTILS.readVariableLengthQuantity(view, 0).value);
 });
 
-test('newMIDIUint8Array should return a Uint8Array of length 3', (t: ExecutionContext<unknown>) => {
-    t.is(3, UTILS.newMIDIUint8Array().length);
+test('channelStatusEncoder should set a Note On MIDI status directed to channel 1', (t: ExecutionContext<unknown>) => {
+    t.is(0b10010000, UTILS.channelStatusEncoder(MidiStatus.NOTE_ON, 1));
 });
 
-test('writeChannelStatusByte should set a Note On MIDI status directed to channel 1 on view and have written 1 byte', (t: ExecutionContext<unknown>) => {
-    const view = new DataView(UTILS.newMIDIUint8Array().buffer);
-    const offset = UTILS.writeChannelStatusByte(view, 0, MidiStatus.NOTE_ON, 1);
-    t.is(0b10010000, view.getUint8(0));
-    t.is(1, offset)
-});
-
-test('writeSystemStatusByte should set system marker byte and status and have written 1 byte', (t: ExecutionContext<unknown>) => {
-    const view = new DataView(UTILS.newMIDIUint8Array().buffer);
-    const offset = UTILS.writeSystemStatusByte(view, 0, MidiStatus.SET_TEMPO);
-    t.is(MidiStatus.SET_TEMPO, view.getUint8(0));
-    t.is(1, offset);
+test('systemStatusEncoder should be an identity function', (t: ExecutionContext<unknown>) => {
+    t.is(MidiStatus.SET_TEMPO, UTILS.systemStatusEncoder(MidiStatus.SET_TEMPO));
 });
 
 test('isSystemMessage should return true for all bits in byte are set to 1', (t: ExecutionContext<unknown>) => {
