@@ -29,7 +29,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "release:patch": "npm version patch && git push && npm publish"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.0",
