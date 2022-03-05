@@ -42,7 +42,7 @@ for (const output of midiAccess.outputs.values()) {
 
 ## :alembic: Bank Select / Program Change
 
-Sending a bank select followed by a program change can be achieved by sending consecutives contol change message before 
+Sending a bank select followed by a program change can be achieved by sending two consecutives contol change messages before 
 sending the actual program change. 
 
 This has been tested on a Dave Simth Instruments Mopho device:
