@@ -63,7 +63,7 @@ for (const input of midiAccess.inputs.values()) {
 Sending a bank select followed by a program change can be achieved by sending two consecutives contol change messages before 
 sending the actual program change. 
 
-This has been tested on a Dave Simth Instruments Mopho device:
+(The following has been tested on a Dave Smith Instruments Mopho device)
 
 ```typescript
 
