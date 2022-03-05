@@ -40,6 +40,51 @@ for (const output of midiAccess.outputs.values()) {
 }
 ```
 
+## :alembic: Bank Select / Program Change
+
+Sending a bank select followed by a program change can be achieved by sending consecutives contol change message before 
+sending the actual program change. 
+
+This has been tested on a Dave Simth Instruments Mopho device:
+
+```typescript
+
+/*
+ * Start Bank Select message
+ * Selects banks 2 (bank 1 is 0) for channel 2
+ */
+output.send(NIO.writeMidiMessage({
+    status: NIO.MidiStatus.CONTROL_CHANGE,
+    channel: 2,
+    data: {
+    control: 32, // always 32
+    value: 1, // bank value
+    }
+}));
+
+output.send(NIO.writeMidiMessage({
+    status: NIO.MidiStatus.CONTROL_CHANGE,
+    channel: 2,
+    data: {
+    control: 0, // always 0
+    value: 1, // bank value (ignored on most devices)
+    }
+})); // Ends bank select message
+
+/*
+ * Now that we have selected bank 2,
+ * let's select a random program
+ */
+output.send(NIO.writeMidiMessage({
+    status: NIO.MidiStatus.PROGRAM_CHANGE,
+    channel: 2,
+    data: {
+    value: Math.ceil(Math.random() * 127),
+    }
+}));
+
+```
+
 ## Read MIDI messages
 
 Print messages received from any available MIDI input in the console.
@@ -71,9 +116,9 @@ for (const input of midiAccess.inputs.values()) {
 |NOTE_OFF|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |PITCH_BEND|:white_check_mark:|:x:|Read and write have been tested on a MIDI port
 |CONTROL_CHANGE|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
+|PROGRAM_CHANGE|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |NOTE_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 |CHANNEL_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
-|PROGRAM_CHANGE|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 
 ## System Messages
 
