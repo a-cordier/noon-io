@@ -42,7 +42,7 @@ for (const output of midiAccess.outputs.values()) {
 
 ## Using factory functions
 
-For one dedicated channel, noon-io offers a more concise way of writing message using factory functions.
+For one dedicated channel, noon-io offers a more concise way of writing messages using factory functions.
 
 ```typescript
 // send a CC of 80 for control 71
