@@ -10,10 +10,34 @@ export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8A
     throw new RangeError(`Unknown MIDI Status ${message.status}`);
 }
 
-interface MidiMessageFactory {
+/**
+ * For a dedicated MIDI channel, MidiMessageFactory offers a more concise way of writing MIDI messages
+ * using factory functions
+ *
+ * see {@link channel}
+ */
+export interface MidiMessageFactory {
+    /**
+     * Creates a MIDI Note On message as a Uint8Array
+     * @param value the MIDI value of the note
+     * @param velocity the velocity of the note (if ommited, the default value is 127)
+     */
     noteOn(value: number, velocity?: number): Uint8Array;
+    /**
+     * Creates a MIDI Note Off message as a Uint8Array
+     * @param value the MIDI value of the note to stop
+     */
     noteOff(value: number): Uint8Array;
+    /**
+     * Creates a Control Change MIDI message as a Uint8Array
+     * @param control the control address to send a value on
+     * @param value the value to be sent to the selected control
+     */
     controlChange(control: number, value: number): Uint8Array;
+    /**
+     * Creates a Program Change MiIDI message as a Uint8Array
+     * @param value the program to select
+     */
     programChange(value: number): Uint8Array;
 }
 
