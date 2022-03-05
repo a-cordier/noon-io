@@ -6,6 +6,10 @@ Easy io for the [Web MIDI API](https://www.w3.org/TR/webmidi/)
 
 Development has just started and until v1.0.0 has been released, noon-io should be considered at least unstable.
 
+# 🗒️ API Documentation
+
+A more detailed documentation of noon-io can be found [here](https://a-cordier.github.io/noon-io/docs).
+
 # 🚀 Getting started
 
 ## 📦 Install
@@ -70,7 +74,7 @@ for (const input of midiAccess.inputs.values()) {
 }
 ```
 
-## ⚗️q Bank Select / Program Change
+## ⚗️ Bank Select / Program Change
 
 Sending a bank select followed by a program change can be achieved by sending two consecutives contol change messages before 
 sending the actual program change. 
@@ -166,3 +170,4 @@ output.send(NIO.channel(2).programChane(109));
 |SMPTE_OFFSET|❌|❌|Not implemented
 |TIME_SIGNATURE|❌|❌|Not implemented
 |KEY_SIGNATURE|❌|❌|Not implemented
+
