@@ -120,7 +120,7 @@ for (const input of midiAccess.inputs.values()) {
 |:-:|:-:|:-:|:--|
 |NOTE_ON|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |NOTE_OFF|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
-|PITCH_BEND|:white_check_mark:|:x:|Read and write have been tested on a MIDI port
+|PITCH_BEND|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |CONTROL_CHANGE|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |PROGRAM_CHANGE|:white_check_mark:|:white_check_mark:|Read and write have been tested on a MIDI port
 |NOTE_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
