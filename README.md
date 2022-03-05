@@ -53,35 +53,41 @@ This has been tested on a Dave Simth Instruments Mopho device:
  * Start Bank Select message
  * Selects banks 2 (bank 1 is 0) for channel 2
  */
-output.send(NIO.writeMidiMessage({
-    status: NIO.MidiStatus.CONTROL_CHANGE,
-    channel: 2,
-    data: {
-    control: 32, // always 32
-    value: 1, // bank value
-    }
-}));
+output.send(
+    NIO.writeMidiMessage({
+        status: NIO.MidiStatus.CONTROL_CHANGE,
+        channel: 2,
+        data: {
+        control: 32, // always 32
+            value: 1, // bank value
+        }
+    })
+);
 
-output.send(NIO.writeMidiMessage({
-    status: NIO.MidiStatus.CONTROL_CHANGE,
-    channel: 2,
-    data: {
-    control: 0, // always 0
-    value: 1, // bank value (ignored on most devices)
-    }
-})); // Ends bank select message
+output.send(
+    NIO.writeMidiMessage({
+        status: NIO.MidiStatus.CONTROL_CHANGE,
+        channel: 2,
+        data: {
+        control: 0, // always 0
+            value: 1, // bank value (ignored on most devices)
+        }
+    })
+); // Ends bank select message
 
 /*
  * Now that we have selected bank 2,
  * let's select a random program
  */
-output.send(NIO.writeMidiMessage({
-    status: NIO.MidiStatus.PROGRAM_CHANGE,
-    channel: 2,
-    data: {
-    value: Math.ceil(Math.random() * 127),
-    }
-}));
+output.send(
+    NIO.writeMidiMessage({
+        status: NIO.MidiStatus.PROGRAM_CHANGE,
+        channel: 2,
+        data: {
+            value: Math.ceil(Math.random() * 127),
+        }
+    })
+);
 
 ```
 
