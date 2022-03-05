@@ -73,6 +73,8 @@ export interface MidiControlChange extends NumberValue {
     control: number;
 }
 
+export type BankSelect = MidiControlChange;
+
 export interface MidiPitchBend {
     /**
      * least significant byte of the pitch bend message
