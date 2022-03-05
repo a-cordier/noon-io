@@ -40,6 +40,24 @@ for (const output of midiAccess.outputs.values()) {
 }
 ```
 
+## Read MIDI messages
+
+Print messages received from any available MIDI input in the console.
+
+```typescript
+import * as NIO from 'noon-io';
+
+// Gain access to the Web MIDI API
+const midiAccess = await navigator.requestMIDIAccess();
+
+// Log messages received from any available input
+for (const input of midiAccess.inputs.values()) {
+    input.onmidimessage = (msg) => {
+        console.log(NIO.readMidiMessage(msg.data));
+    };
+}
+```
+
 ## :alembic: Bank Select / Program Change
 
 Sending a bank select followed by a program change can be achieved by sending two consecutives contol change messages before 
@@ -89,24 +107,6 @@ output.send(
     })
 );
 
-```
-
-## Read MIDI messages
-
-Print messages received from any available MIDI input in the console.
-
-```typescript
-import * as NIO from 'noon-io';
-
-// Gain access to the Web MIDI API
-const midiAccess = await navigator.requestMIDIAccess();
-
-// Log messages received from any available input
-for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = (msg) => {
-        console.log(NIO.readMidiMessage(msg.data));
-    };
-}
 ```
 
 🚧 Supported Message
