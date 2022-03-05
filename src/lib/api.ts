@@ -41,7 +41,7 @@ export interface MidiDataSerializer<T> {
      * @param message The message to serialize to the DataView
      * @returns The number of bytes written to the DataView
      */
-    serialize(data: DataView, message: T, offset: number): number;
+    serialize(view: DataView, offset: number, message: T): void;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface MidiDataSerializer<T> {
 export interface MidiMessageWriter<T> {
     /**
      * @internal
-     * @param message: A MIDI message in a structured format
+     * @param message: A noon formated MIDI message
      * @returns The MIDI message as a MIDI encoded Uint8Array
      */
     (message: API.MidiMessage<T>): Uint8Array;
@@ -59,13 +59,13 @@ export interface MidiMessageWriter<T> {
 /**
  * @internal
  */
-export interface StatusWriter {
+export interface StatusEncoder {
     /**
      * @param status The MIDI status without the channel bytes in case of a channel message
      * @param channel The MIDI channel to add to the MIDI status in case of a channel message
      * @returns The actual message status deduced from status and channel
      */
-    (view: DataView, offset: number, status: API.MidiStatus, channel?: number): number;
+    (status: API.MidiStatus, channel?: number): number;
 }
 
 /**

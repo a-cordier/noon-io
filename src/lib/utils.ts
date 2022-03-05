@@ -1,7 +1,5 @@
 import * as API from '../api/index.js';
 
-const MIDI_MESSAGE_MAX_BYTES = 3;
-
 export function times<T>(length: number, op: (idx: number) => T): T[] {
     return Array.from({ length }).map((_, i) => op(i));
 }
@@ -50,19 +48,12 @@ export function isRunningStatusChange(view: DataView, offset: number) {
     return 0 !== unmasked;
 }
 
-export function writeChannelStatusByte(view: DataView, offset: number, status: API.MidiStatus, channel: number): number {
-    const midiStatus =  (status << 4) | (channel - 1);
-    view.setUint8(offset, midiStatus);
-    return offset + 1;
+export function channelStatusEncoder(status: API.MidiStatus, channel: number): number {
+    return (status << 4) | (channel - 1);
 }
 
-export function writeSystemStatusByte(view: DataView, offset: number, status: API.MidiStatus): number {
-    view.setUint8(offset, status);;
-    return offset + 1;
-}
-
-export function newMIDIUint8Array(): Uint8Array {
-    return new Uint8Array(MIDI_MESSAGE_MAX_BYTES);
+export function systemStatusEncoder(status: API.MidiStatus): number {
+    return status;
 }
 
 export function getDataView(bytes = [0]): DataView {
