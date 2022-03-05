@@ -131,9 +131,9 @@ output.send(NIO.channel(2).controlChange(0, 0));
 output.send(NIO.channel(2).programChane(109));
 ```
 
-# 🚧 Supported Message
+# 🚧 Supported Messages
 
-:warning: Some supported MIDI messages may not have been tested on a MIDI port (see the status section of the following table)
+:warning: Some of the following MIDI messages may not have been tested on a MIDI port (see the status section of the following tables)
 
 ## :notes: Channel Messages
 
