@@ -15,7 +15,7 @@ Development has just started and until v1.0.0 has been released, noon-io should 
 npm i noon-io
 ```
 
-## Send MIDI messages
+## 📤 Send MIDI messages
 
 Send a A4 `NOTE ON` message on all available MIDI outputs
 
@@ -40,7 +40,7 @@ for (const output of midiAccess.outputs.values()) {
 }
 ```
 
-## Using factory functions
+## 🔨 Using factory functions
 
 For one dedicated channel, noon-io offers a more concise way of writing messages using factory functions.
 
@@ -53,7 +53,7 @@ output.send(NIO.channel(2).noteOn(69, 120));
 output.send(NIO.channel(2).noteOff(69));
 ```
 
-## Read MIDI messages
+## 📥 Read MIDI messages
 
 Print messages received from any available MIDI input in the console.
 
