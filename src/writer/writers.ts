@@ -1,5 +1,5 @@
-import * as API from '../api/index.js';
-import * as LIB from '../lib/index.js';
+import * as API from '../api/factory.js';
+import * as LIB from '../lib/factory.js';
 import * as IMP from './serializers.js';
 
 const WRITERS = new Map<API.MidiStatus, LIB.MidiMessageWriter<API.MidiData>>();

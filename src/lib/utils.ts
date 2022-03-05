@@ -1,4 +1,4 @@
-import * as API from '../api/index.js';
+import * as API from '../api/factory.js';
 
 export function times<T>(length: number, op: (idx: number) => T): T[] {
     return Array.from({ length }).map((_, i) => op(i));

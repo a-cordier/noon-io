@@ -1,5 +1,5 @@
-import * as API from '../api/index.js';
-import * as LIB from '../lib/index.js';
+import * as API from '../api/factory.js';
+import * as LIB from '../lib/factory.js';
 
 export class NumberValueSerializer implements LIB.MidiDataDeserializer<API.NumberValue> {
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<API.NumberValue> {
