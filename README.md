@@ -2,6 +2,10 @@
 
 Easy io for the [Web MIDI API](https://www.w3.org/TR/webmidi/)
 
+## :warning: Disclaimer
+
+Development has just started and until v1.0.0 has been released, noon-io should be considered at least unstable.
+
 🚀 Getting started
 --
 
