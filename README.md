@@ -78,7 +78,7 @@ sending the actual program change.
 (The following has been tested on a Dave Smith Instruments Mopho device)
 
 ```typescript
-
+import * as NIO from 'noon-io';
 /*
  * Start Bank Select message
  * Selects banks 2 (bank 1 is 0) for channel 2
@@ -119,6 +119,16 @@ output.send(
     })
 );
 
+```
+
+Or using factory functions
+
+```typescript
+// Select bank 1
+output.send(NIO.channel(2).controlChange(32, 0));
+output.send(NIO.channel(2).controlChange(0, 0));
+// Select program 109 from bank 1
+output.send(NIO.channel(2).programChane(109));
 ```
 
 # 🚧 Supported Message
