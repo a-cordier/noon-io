@@ -6,8 +6,7 @@ Easy io for the [Web MIDI API](https://www.w3.org/TR/webmidi/)
 
 Development has just started and until v1.0.0 has been released, noon-io should be considered at least unstable.
 
-🚀 Getting started
---
+# 🚀 Getting started
 
 ## :package: Install
 
@@ -122,12 +121,11 @@ output.send(
 
 ```
 
-🚧 Supported Message
---
+# 🚧 Supported Message
 
 :warning: Some supported MIDI messages may not have been tested on a MIDI port (see the status section of the following table)
 
-## Channel Messages
+## :notes: Channel Messages
 
 |Type|Reader|Writer|Status
 |:-:|:-:|:-:|:--|
@@ -139,7 +137,7 @@ output.send(
 |NOTE_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 |CHANNEL_AFTER_TOUCH|:white_check_mark:|:white_check_mark:|Both read and write have not been tested
 
-## System Messages
+## :control_knobs: System Messages
 
 |Type|Reader|Writer|Status
 |:-:|:-:|:-:|:--|
