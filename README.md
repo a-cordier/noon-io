@@ -9,7 +9,7 @@ Development has just started and until v1.0.0 has been released, noon-io should 
 🚀 Getting started
 --
 
-## Install
+## :package: Install
 
 ```bash
 npm i noon-io
