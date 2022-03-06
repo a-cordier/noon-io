@@ -20,7 +20,7 @@ export interface MidiMessageFactory {
     /**
      * Creates a MIDI Note On message as a Uint8Array
      * @param value the MIDI value of the note
-     * @param velocity the velocity of the note (if ommited, the default value is 127)
+     * @param velocity the velocity of the note (if ommited, the default value is 64)
      */
     noteOn(value: number, velocity?: number): Uint8Array;
     /**
@@ -43,7 +43,7 @@ export interface MidiMessageFactory {
 
 export function channel(channel: number): MidiMessageFactory {
     return {
-        noteOn(value: number, velocity = 127): Uint8Array {
+        noteOn(value: number, velocity = 64): Uint8Array {
             return writeMidiMessage({
                 status: API.MidiStatus.NOTE_ON,
                 channel,
