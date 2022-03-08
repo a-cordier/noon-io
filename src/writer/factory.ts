@@ -35,6 +35,32 @@ export interface MidiMessageFactory {
      */
     controlChange(control: number, value: number): Uint8Array;
     /**
+     * Creates a Bank Select MSB MIDI message as a Uint8Array
+     * This message is in fact a Control Change message with
+     * a control address set to 0.
+     *
+     * Bank is selected using the product of this message value
+     * and a subsequent `bankSelectLSB` message value to allow
+     * up to 2097152 program changes distributed across 16384
+     * banks.
+     *
+     * @param value the MSB value of the bank select message
+     */
+    bankSelectMSB(value: number): Uint8Array;
+    /**
+     * Creates a Bank Select LSB MIDI message as a Uint8Array
+     * This message is in fact a Control Change message with
+     * a control address set to 0.
+     *
+     * Bank is selected using of a foregoing `bankSelectMSB`
+     * message value and this message value to allow up to
+     * 2097152 program changes distributed across 16384
+     * banks.
+     *
+     * @param value the MSB value of the bank select message
+     */
+    bankSelectLSB(value: number): Uint8Array;
+    /**
      * Creates a Program Change MiIDI message as a Uint8Array
      * @param value the program to select
      */
@@ -69,6 +95,26 @@ export function channel(channel: number): MidiMessageFactory {
                 channel,
                 data: {
                     control,
+                    value,
+                },
+            });
+        },
+        bankSelectMSB(value: number): Uint8Array {
+            return writeMidiMessage({
+                status: API.MidiStatus.CONTROL_CHANGE,
+                channel,
+                data: {
+                    control: 0,
+                    value,
+                },
+            });
+        },
+        bankSelectLSB(value: number): Uint8Array {
+            return writeMidiMessage({
+                status: API.MidiStatus.CONTROL_CHANGE,
+                channel,
+                data: {
+                    control: 32,
                     value,
                 },
             });
