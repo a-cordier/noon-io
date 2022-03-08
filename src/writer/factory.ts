@@ -50,7 +50,7 @@ export interface MidiMessageFactory {
     /**
      * Creates a Bank Select LSB MIDI message as a Uint8Array
      * This message is in fact a Control Change message with
-     * a control address set to 0.
+     * a control address set to 32.
      *
      * Bank is selected using of a foregoing `bankSelectMSB`
      * message value and this message value to allow up to
@@ -61,7 +61,7 @@ export interface MidiMessageFactory {
      */
     bankSelectLSB(value: number): Uint8Array;
     /**
-     * Creates a Program Change MiIDI message as a Uint8Array
+     * Creates a Program Change MIDI message as a Uint8Array
      * @param value the program to select
      */
     programChange(value: number): Uint8Array;
