@@ -92,8 +92,8 @@ output.send(
         status: NIO.MidiStatus.CONTROL_CHANGE,
         channel: 2,
         data: {
-        control: 32, // always 32
-            value: 1, // bank value
+            control: 0, // bank select MSB (always 0)
+            value: 1, // MSB multiplier
         }
     })
 );
@@ -103,8 +103,8 @@ output.send(
         status: NIO.MidiStatus.CONTROL_CHANGE,
         channel: 2,
         data: {
-        control: 0, // always 0
-            value: 1, // bank value (ignored on most devices)
+        control: 0, // bank select LSB (always 32)
+            value: 1, // LSB multiplier
         }
     })
 ); // Ends bank select message
@@ -125,14 +125,14 @@ output.send(
 
 ```
 
-Or using factory functions
+Or using the `bankSelectMSB` and `bankSelectLSB` provided by noon-io
 
 ```typescript
 // Select bank 1
-output.send(NIO.channel(2).controlChange(32, 0));
-output.send(NIO.channel(2).controlChange(0, 0));
+output.send(NIO.channel(2).bankSelectMSB(0));
+output.send(NIO.channel(2).bankSelectLSB(0));
 // Select program 109 from bank 1
-output.send(NIO.channel(2).programChane(109));
+output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 ```
 
 # 🚧 Supported Messages
