@@ -16,6 +16,13 @@ export enum MidiStatus {
     KEY_SIGNATURE = 0x59,
     SPECIFIC = 0x7f,
     SYSEX_MESSAGE = 0xf0,
+    // REAL TIME
+    TIMING_CLOCK = 0xf8,
+    START = 0xf9,
+    CONTINUE = 0xfb,
+    STOP = 0xfc,
+    ACTIVE_SENDING = 0xfe,
+    SYSTEM_RESET = 0xff,
     // CHANNEL MESSAGES
     NOTE_OFF = 0x08,
     NOTE_ON = 0x09,
