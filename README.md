@@ -56,7 +56,7 @@ output.send(NIO.channel(2).noteOn(69, 120));
 output.send(NIO.channel(2).noteOff(69));
 ```
 
-For more information about noon-io factories, checkout the [documentation](https://a-cordier.github.io/noon-io/docs/interfaces/MidiMessageFactory.html)
+For more information about noon-io factories, you can checkout this [documentation](https://a-cordier.github.io/noon-io/docs/interfaces/MidiMessageFactory.html)
 
 ## 📥 Read MIDI messages
 
