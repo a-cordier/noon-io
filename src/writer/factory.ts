@@ -11,10 +11,11 @@ export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8A
 }
 
 /**
- * For a dedicated MIDI channel, MidiMessageFactory offers a more concise way of writing MIDI messages
+ * For a dedicated MIDI channel, noon-io offers a more concise way of writing MIDI messages
  * using factory functions
  *
- * see {@link channel}
+ * A factory can be instanciated by calling the [channel](https://a-cordier.github.io/noon-io/docs/modules.html#channel)
+ * function
  */
 export interface MidiMessageFactory {
     /**
@@ -44,7 +45,7 @@ export interface MidiMessageFactory {
      * up to 2097152 program changes distributed across 16384
      * banks.
      *
-     * @param value the MSB value of the bank select message
+     * @param value the MSB multiplier of the bank select message
      */
     bankSelectMSB(value: number): Uint8Array;
     /**
@@ -57,7 +58,7 @@ export interface MidiMessageFactory {
      * 2097152 program changes distributed across 16384
      * banks.
      *
-     * @param value the MSB value of the bank select message
+     * @param value the MSB multiplier of the bank select message
      */
     bankSelectLSB(value: number): Uint8Array;
     /**
