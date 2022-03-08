@@ -105,7 +105,7 @@ output.send(
         status: NIO.MidiStatus.CONTROL_CHANGE,
         channel: 2,
         data: {
-        control: 0, // bank select LSB (always 32)
+            control: 0, // bank select LSB (always 32)
             value: 1, // LSB multiplier
         }
     })
