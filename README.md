@@ -144,7 +144,7 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 ## 🎶 Channel Messages
 
 |Type|Reader|Writer|Status
-|:-:|:-:|:-:|:--|
+|:--|:-:|:-:|:--|
 |NOTE_ON|✅|✅|Read and write have been tested on a MIDI port
 |NOTE_OFF|✅|✅|Read and write have been tested on a MIDI port
 |PITCH_BEND|✅|✅|Read and write have been tested on a MIDI port
@@ -156,7 +156,7 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 ## 🎛️ System Messages
 
 |Type|Reader|Writer|Status
-|:-:|:-:|:-:|:--|
+|:--|:-:|:-:|:--|
 |SYSEX_MESSAGE|✅|❌|Read has not been tested, write is not implemented
 |SEQUENCE_NAME|✅|❌|Read has not been tested, write is not implemented
 |INSTRUMENT_NAME|✅|❌|Read has not been tested, write is not implemented
