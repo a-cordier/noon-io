@@ -125,7 +125,7 @@ output.send(
 
 ```
 
-Or using the `bankSelectMSB` and `bankSelectLSB` provided by noon-io
+Or using the `bankSelectMSB` and `bankSelectLSB` factories provided by noon-io
 
 ```typescript
 // Select bank 1
