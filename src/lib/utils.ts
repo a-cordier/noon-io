@@ -43,6 +43,20 @@ export function isSystemMessage(view: DataView, offset: number): boolean {
     return 0xff === status;
 }
 
+export function isRealTimeMessage(view: DataView, offset: number): boolean {
+    switch (view.getUint8(offset)) {
+        case API.MidiStatus.TIMING_CLOCK:
+        case API.MidiStatus.START:
+        case API.MidiStatus.STOP:
+        case API.MidiStatus.CONTINUE:
+        case API.MidiStatus.SYSTEM_RESET:
+        case API.MidiStatus.ACTIVE_SENDING:
+            return true;
+        default:
+            return false;
+    }
+}
+
 export function isRunningStatusChange(view: DataView, offset: number) {
     const unmasked = view.getUint8(offset) && 0x80;
     return 0 !== unmasked;
