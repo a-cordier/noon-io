@@ -157,6 +157,12 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 
 |Type|Reader|Writer|Status
 |:--|:-:|:-:|:--|
+|TIMING_CLOCK|✅|✅|Both read and write have not been tested
+|START|✅|✅|Both read and write have not been tested
+|STOP|✅|✅|Both read and write have not been tested
+|CONTINUE|✅|✅|Both read and write have not been tested
+|SYSTEM_RESET|✅|✅|Both read and write have not been tested
+|ACTIVE_SENDING|✅|✅|Both read and write have not been tested
 |SYSEX_MESSAGE|✅|❌|Read has not been tested, write is not implemented
 |SEQUENCE_NAME|✅|❌|Read has not been tested, write is not implemented
 |INSTRUMENT_NAME|✅|❌|Read has not been tested, write is not implemented
