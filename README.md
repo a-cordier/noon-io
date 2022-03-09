@@ -43,7 +43,7 @@ for (const output of midiAccess.outputs.values()) {
 }
 ```
 
-## 🔨 Using factory functions
+## 🔨 Using channel message factory functions
 
 For one dedicated channel, noon-io offers a more concise way of writing messages using factory functions.
 
@@ -56,7 +56,7 @@ output.send(NIO.channel(2).noteOn(69, 120));
 output.send(NIO.channel(2).noteOff(69));
 ```
 
-For more information about noon-io factories, you can checkout this [documentation](https://a-cordier.github.io/noon-io/docs/interfaces/MidiMessageFactory.html)
+For more information about noon-io factories, you can checkout this [documentation](https://a-cordier.github.io/noon-io/docs/interfaces/ChannelMessageFactory.html)
 
 ## 📥 Read MIDI messages
 
