@@ -35,3 +35,8 @@ export class NumberValueSerializer implements LIB.MidiDataSerializer<API.NumberV
         view.setUint8(offset, programChange.value);
     }
 }
+
+export class NoopSerializer implements LIB.MidiDataSerializer<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+    serialize(view: DataView, offset: number) {}
+}

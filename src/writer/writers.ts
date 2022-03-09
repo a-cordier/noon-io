@@ -62,4 +62,34 @@ WRITERS.set(
     createWriter<API.MidiPitchBend>(LIB.channelStatusEncoder, new IMP.PitchBendSerializer(), 3),
 );
 
+WRITERS.set(
+    API.MidiStatus.TIMING_CLOCK,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
+WRITERS.set(
+    API.MidiStatus.START,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
+WRITERS.set(
+    API.MidiStatus.CONTINUE,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
+WRITERS.set(
+    API.MidiStatus.STOP,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
+WRITERS.set(
+    API.MidiStatus.ACTIVE_SENDING,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
+WRITERS.set(
+    API.MidiStatus.SYSTEM_RESET,
+    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+);
+
 export { WRITERS };

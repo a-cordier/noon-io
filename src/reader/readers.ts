@@ -79,4 +79,34 @@ READERS.set(
     createReader<API.SysexValue>(API.MidiStatus.SYSEX_MESSAGE, new IMP.SysexDeserializer()),
 );
 
+READERS.set(
+    API.MidiStatus.TIMING_CLOCK,
+    createReader<void>(API.MidiStatus.TIMING_CLOCK, new IMP.EmptyMessageDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.START,
+    createReader<void>(API.MidiStatus.START, new IMP.EmptyMessageDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.STOP,
+    createReader<void>(API.MidiStatus.STOP, new IMP.EmptyMessageDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.CONTINUE,
+    createReader<void>(API.MidiStatus.CONTINUE, new IMP.EmptyMessageDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.ACTIVE_SENDING,
+    createReader<void>(API.MidiStatus.ACTIVE_SENDING, new IMP.EmptyMessageDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.SYSTEM_RESET,
+    createReader<void>(API.MidiStatus.SYSTEM_RESET, new IMP.EmptyMessageDeserializer()),
+);
+
 export { READERS };

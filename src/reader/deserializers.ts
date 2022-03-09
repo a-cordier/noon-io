@@ -91,3 +91,11 @@ export class SysexDeserializer implements LIB.MidiDataDeserializer<API.SysexValu
         };
     }
 }
+
+export class EmptyMessageDeserializer implements LIB.MidiDataDeserializer<void> {
+    deserialize(view: DataView, offset: number): LIB.DeserializationResult<void> {
+        return {
+            offset: offset + 1,
+        };
+    }
+}
