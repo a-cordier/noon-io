@@ -17,7 +17,7 @@ export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8A
  * A factory can be instanciated by calling the [channel](https://a-cordier.github.io/noon-io/docs/modules.html#channel)
  * function
  */
-export interface MidiMessageFactory {
+export interface ChannelMessageFactory {
     /**
      * Creates a MIDI Note On message as a Uint8Array
      * @param value the MIDI value of the note
@@ -68,7 +68,7 @@ export interface MidiMessageFactory {
     programChange(value: number): Uint8Array;
 }
 
-export function channel(channel: number): MidiMessageFactory {
+export function channel(channel: number): ChannelMessageFactory {
     return {
         noteOn(value: number, velocity = 64): Uint8Array {
             return writeMidiMessage({
