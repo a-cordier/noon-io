@@ -1,4 +1,8 @@
-export enum MidiStatus {
+/**
+ * MIDI status constants are used to define
+ * which type of message is about to be read / written.
+ */
+ export enum MidiStatus {
     // SYSTEM MESSAGES
     SEQUENCE_NUMBER = 0x00,
     TEXT_EVENT = 0x01,
@@ -15,20 +19,62 @@ export enum MidiStatus {
     TIME_SIGNATURE = 0x58,
     KEY_SIGNATURE = 0x59,
     SPECIFIC = 0x7f,
-    SYSEX_MESSAGE = 0xf0,
-    // REAL TIME
+    /**
+     * System Exclusive Message
+     */
+    SYSEX = 0xf0,
+    /**
+     * Real Time System Message
+     */
     TIMING_CLOCK = 0xf8,
+    /**
+     * Real Time System Message
+     */
     START = 0xf9,
+    /**
+     * Real Time System Message
+     */
     CONTINUE = 0xfb,
+    /**
+     * Real Time System Message
+     */
     STOP = 0xfc,
+    /**
+     * Real Time System Message
+     */
     ACTIVE_SENDING = 0xfe,
+    /**
+     * Real Time System Message
+     */
     SYSTEM_RESET = 0xff,
-    // CHANNEL MESSAGES
+    /**
+     * Channel Message
+     */
     NOTE_OFF = 0x08,
+    /**
+     * Channel Message
+     */
     NOTE_ON = 0x09,
+    /**
+     * Channel Message
+     */
     NOTE_AFTER_TOUCH = 0x0a,
-    CONTROL_CHANGE = 0x0b,
-    PROGRAM_CHANGE = 0x0c,
+    /**
+     * Channel Message
+     */
     CHANNEL_AFTER_TOUCH = 0x0d,
+    /**
+     * Channel Message
+     * May be used to express other messages such
+     * as Bank Select or Channel Mode
+     */
+    CONTROL_CHANGE = 0x0b,
+    /**
+     * Channel Message
+     */
+    PROGRAM_CHANGE = 0x0c,
+    /**
+     * Channel Message
+     */
     PITCH_BEND = 0x0e,
 }
