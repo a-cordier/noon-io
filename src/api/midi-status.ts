@@ -2,7 +2,7 @@
  * MIDI status constants are used to define
  * which type of message is about to be read / written.
  */
- export enum MidiStatus {
+export enum MidiStatus {
     // SYSTEM MESSAGES
     SEQUENCE_NUMBER = 0x00,
     TEXT_EVENT = 0x01,
@@ -19,6 +19,34 @@
     TIME_SIGNATURE = 0x58,
     KEY_SIGNATURE = 0x59,
     SPECIFIC = 0x7f,
+    /**
+     * System Common message
+     *
+     * A sequencer's Song Position (SP) is the number of MIDI beats (1 beat = 6 MIDI clocks)
+     * that have elapsed from the start of the song and is used to begin playback of a sequence
+     * from a position other than the beginning of the song.
+     */
+    SONG_POSITION = 0xf2,
+    /**
+     * System Common Message
+     *
+     * Specifies which song or sequence is to be played upon receipt of a Start message in sequencers and drum machines capable of holding multiple songs or sequences.
+     * This message should be ignored if the receiver is not set to respond to incoming Real Time messages (MIDI Sync).
+     */
+    SONG_SELECT = 0xf3,
+    /**
+     * System Common Message
+     *
+     * Used with analog synthesizers to request that all oscillators be tuned.
+
+     */
+    TUNE_REQUEST = 0xf6,
+    /**
+     * System Common Message
+     *
+     * End of Exclusive
+     */
+    EOX = 0xf7,
     /**
      * System Exclusive Message
      */
@@ -65,6 +93,7 @@
     CHANNEL_AFTER_TOUCH = 0x0d,
     /**
      * Channel Message
+     *
      * May be used to express other messages such
      * as Bank Select or Channel Mode
      */
