@@ -24,7 +24,7 @@ function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API
     return message;
 }
 
-function readRealTimeMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData>|null {
+function readRealTimeMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
     const status = view.getUint8(offset);
     if (READERS.has(status)) {
         const read = READERS.get(status);
