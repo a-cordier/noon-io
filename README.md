@@ -145,23 +145,27 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 
 |Type|Reader|Writer|Status
 |:--|:-:|:-:|:--|
-|NOTE_ON|✅|✅|Read and write have been tested on a MIDI port
-|NOTE_OFF|✅|✅|Read and write have been tested on a MIDI port
-|PITCH_BEND|✅|✅|Read and write have been tested on a MIDI port
-|CONTROL_CHANGE|✅|✅|Read and write have been tested on a MIDI port
-|PROGRAM_CHANGE|✅|✅|Read and write have been tested on a MIDI port
-|NOTE_AFTER_TOUCH|✅|✅|Both read and write have not been tested
-|CHANNEL_AFTER_TOUCH|✅|✅|Both read and write have not been tested
+|NOTE ON|✅|✅|Read and write have been tested on a MIDI port
+|NOTE OFF|✅|✅|Read and write have been tested on a MIDI port
+|PITCH BEND|✅|✅|Read and write have been tested on a MIDI port
+|CONTROL CHANGE|✅|✅|Read and write have been tested on a MIDI port
+|PROGRAM CHANGE|✅|✅|Read and write have been tested on a MIDI port
+|NOTE AFTER TOUCH|✅|✅|Both read and write have not been tested
+|CHANNEL AFTER TOUCH|✅|✅|Both read and write have not been tested
 
 ## 🎛️ System Messages
 
 |Type|Reader|Writer|Status
 |:--|:-:|:-:|:--|
-|TIMING_CLOCK|✅|✅|Both read and write have not been tested
+|TIMING CLOCK|✅|✅|Both read and write have not been tested
 |START|✅|✅|Both read and write have not been tested
 |STOP|✅|✅|Both read and write have not been tested
 |CONTINUE|✅|✅|Both read and write have not been tested
-|SYSTEM_RESET|✅|✅|Both read and write have not been tested
-|ACTIVE_SENDING|✅|✅|Both read and write have not been tested
-|SYSEX_MESSAGE|✅|❌|Read has not been tested, write is not implemented
-
+|SYSTEM RESET|✅|✅|Both read and write have not been tested
+|ACTIVE SENDING|✅|✅|Both read and write have not been tested
+|SYSTEM EXCLUSIVE|❌|❌|Not Implemented
+|END OF SYSTEM EXCLUSIVE|❌|❌|Not Implemented
+|MIDI TIME CODE QUARTER FRAME|❌|❌|Not Implemented
+|SONG POSITION|❌|❌|Not Implemented
+|SONG SELECT|❌|❌|Not Implemented
+|TUNE REQUEST|❌|❌|Not Implemented
