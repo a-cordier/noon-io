@@ -75,8 +75,8 @@ READERS.set(
 );
 
 READERS.set(
-    API.MidiStatus.SYSEX_MESSAGE,
-    createReader<API.SysexValue>(API.MidiStatus.SYSEX_MESSAGE, new IMP.SysexDeserializer()),
+    API.MidiStatus.SYSEX,
+    createReader<API.SysexValue>(API.MidiStatus.SYSEX, new IMP.SysexDeserializer()),
 );
 
 READERS.set(
