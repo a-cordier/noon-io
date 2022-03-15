@@ -164,8 +164,8 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 |SYSTEM RESET|✅|✅|Both read and write have not been tested
 |ACTIVE SENDING|✅|✅|Both read and write have not been tested
 |SYSTEM EXCLUSIVE|❌|❌|Not Implemented
-|END OF SYSTEM EXCLUSIVE|❌|❌|Not Implemented
-|MIDI TIME CODE QUARTER FRAME|❌|❌|Not Implemented
+|END OF SYSEX|❌|❌|Not Implemented
+|MIDI TIME CODE|❌|❌|Not Implemented
 |SONG POSITION|❌|❌|Not Implemented
 |SONG SELECT|❌|❌|Not Implemented
 |TUNE REQUEST|❌|❌|Not Implemented
