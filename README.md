@@ -164,18 +164,4 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 |SYSTEM_RESET|✅|✅|Both read and write have not been tested
 |ACTIVE_SENDING|✅|✅|Both read and write have not been tested
 |SYSEX_MESSAGE|✅|❌|Read has not been tested, write is not implemented
-|SEQUENCE_NAME|✅|❌|Read has not been tested, write is not implemented
-|INSTRUMENT_NAME|✅|❌|Read has not been tested, write is not implemented
-|SEQUENCE_NUMBER|❌|❌|Not implemented
-|TEXT_EVENT|❌|❌|Not implemented
-|COPYRIGHT_NOTICE|❌|❌|Not implemented
-|LYRIC|❌|❌|Not implemented
-|MARKER|❌|❌|Not implemented
-|CUE_POINT|❌|❌|Not implemented
-|MIDI_CHANNEL_PREFIX|❌|❌|Not implemented
-|END_OF_TRACK|❌|❌|Not implemented
-|SET_TEMPO|❌|❌|Not implemented
-|SMPTE_OFFSET|❌|❌|Not implemented
-|TIME_SIGNATURE|❌|❌|Not implemented
-|KEY_SIGNATURE|❌|❌|Not implemented
 

@@ -66,10 +66,6 @@ test('channelStatusEncoder should set a Note On MIDI status directed to channel 
     t.is(0b10010000, UTILS.channelStatusEncoder(MidiStatus.NOTE_ON, 1));
 });
 
-test('systemStatusEncoder should be an identity function', (t: ExecutionContext<unknown>) => {
-    t.is(MidiStatus.SET_TEMPO, UTILS.systemStatusEncoder(MidiStatus.SET_TEMPO));
-});
-
 test('isSystemMessage should return true for all bits in byte are set to 1', (t: ExecutionContext<unknown>) => {
     const view = UTILS.getDataView([0b11111111]);
     t.true(UTILS.isSystemMessage(view, 0));
