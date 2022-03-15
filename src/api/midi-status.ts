@@ -1,6 +1,8 @@
 /**
- * MIDI status constants are used to define
- * which type of message is about to be read / written.
+ * The MIDI Status is used to define which type of message has been read or should be written.
+ *
+ * The following enumeration constants and explanation come from the MIDI 1.0 Detailed Specification
+ * that can be found on the [MIDI Association](https://midi.org/specifications/midi1-specifications) web site.
  */
 export enum MidiStatus {
     /**
