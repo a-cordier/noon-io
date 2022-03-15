@@ -62,19 +62,6 @@ READERS.set(
 );
 
 READERS.set(
-    API.MidiStatus.SEQUENCE_NAME,
-    createReader<API.StringValue>(API.MidiStatus.SEQUENCE_NAME, new IMP.StringValueDeserializer()),
-);
-
-READERS.set(
-    API.MidiStatus.INSTRUMENT_NAME,
-    createReader<API.StringValue>(
-        API.MidiStatus.INSTRUMENT_NAME,
-        new IMP.StringValueDeserializer(),
-    ),
-);
-
-READERS.set(
     API.MidiStatus.SYSEX,
     createReader<API.SysexValue>(API.MidiStatus.SYSEX, new IMP.SysexDeserializer()),
 );
