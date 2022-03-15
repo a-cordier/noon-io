@@ -4,16 +4,16 @@
  */
 export enum MidiStatus {
     /**
-     * @category System Common message
      *
      * For device synchronization, MIDI Time Code uses two basic types of messages, described as Quarter Frame and Full.
      * There is also a third, optional message for encoding SMPTE user bits.
      * The Quarter Frame message communicates the Frame, Seconds, Minutes and Hours Count in an 8-message sequence.
      * There is also an MTC FULL FRAME message which is a MIDI System Exclusive Message.
+     *
+     * @category System Common message
      */
     MTC = 0xf1,
     /**
-     * @category System Common message
      *
      * A sequencer's Song Position (SP) is the number of MIDI beats (1 beat = 6 MIDI clocks) that have elapsed from the start of the song
      * and is used to begin playback of a sequence from a position other than the beginning of the song.
@@ -24,23 +24,26 @@ export enum MidiStatus {
      * The current Song Position can be communicated via the Song Position Pointer message and can be changed in a receiver by an incoming Song Position Pointer message.
      *
      * This message should only be recognized if the receiver is set to MIDI sync (external) mode.
+     *
+     * @category System Common message
      */
     SONG_POSITION = 0xf2,
     /**
-     * @category System Common Message
      *
      * Specifies which song or sequence is to be played upon receipt of a Start message in sequencers and drum machines capable of holding multiple songs or sequences.
      * This message should be ignored if the receiver is not set to respond to incoming Real Time messages (MIDI Sync).
+     *
+     * @category System Common Message
      */
     SONG_SELECT = 0xf3,
     /**
-     * @category System Common Message
      *
      * Used with analog synthesizers to request that all oscillators be tuned.
+     *
+     * @category System Common Message
      */
     TUNE_REQUEST = 0xf6,
     /**
-     * @category System Common Message
      *
      * Used as a flag to indicate the end of a System Exclusive transmission.
      *
@@ -52,6 +55,8 @@ export enum MidiStatus {
      *
      * Real time messages may be inserted between data bytes of an Exclusive message in order to maintain synchronization,
      * and can not be used to terminate an exclusive message.
+     *
+     * @category System Common Message
      */
     EOX = 0xf7,
     /**
@@ -99,10 +104,13 @@ export enum MidiStatus {
      */
     CHANNEL_AFTER_TOUCH = 0x0d,
     /**
-     * @category Channel Message
      *
-     * May be used to express other messages such
-     * as Bank Select or Channel Mode
+     * The Control Change message is generally used for modifying tones with a controller other than a keyboard key.
+     * It is not for setting synthesizer parameters such as VCF cut-off, envelope decay, etc.
+     *
+     * There are some exceptions to the use of the Control Change message, such as the special Bank Select message and the RPN/NRPN
+     *
+     * @category Channel Message
      */
     CONTROL_CHANGE = 0x0b,
     /**
