@@ -157,7 +157,7 @@ output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 
 |Type|Reader|Writer|Status
 |:--|:-:|:-:|:--|
-|TIMING CLOCK|✅|✅|Both read and write have not been tested
+|TIMING CLOCK|✅|✅|Only Read has been tester on a MIDI port
 |START|✅|✅|Both read and write have not been tested
 |STOP|✅|✅|Both read and write have not been tested
 |CONTINUE|✅|✅|Both read and write have not been tested
