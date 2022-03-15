@@ -58,7 +58,7 @@ export enum MidiStatus {
      * Real time messages may be inserted between data bytes of an Exclusive message in order to maintain synchronization,
      * and can not be used to terminate an exclusive message.
      *
-     * @category System Common Message
+     * @category System Exclusive Message
      */
     EOX = 0xf7,
     /**
