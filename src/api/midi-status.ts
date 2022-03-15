@@ -10,7 +10,7 @@ export enum MidiStatus {
      * The Quarter Frame message communicates the Frame, Seconds, Minutes and Hours Count in an 8-message sequence.
      * There is also an MTC FULL FRAME message which is a MIDI System Exclusive Message.
      *
-     * @category System Common message
+     * @category System Common Message
      */
     MTC = 0xf1,
     /**
@@ -25,7 +25,7 @@ export enum MidiStatus {
      *
      * This message should only be recognized if the receiver is set to MIDI sync (external) mode.
      *
-     * @category System Common message
+     * @category System Common Message
      */
     SONG_POSITION = 0xf2,
     /**
