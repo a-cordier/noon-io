@@ -141,3 +141,11 @@ export enum MidiStatus {
      */
     PITCH_BEND = 0x0e,
 }
+
+export type RealTimeStatus =
+    | MidiStatus.TIMING_CLOCK
+    | MidiStatus.START
+    | MidiStatus.STOP
+    | MidiStatus.CONTINUE
+    | MidiStatus.SYSTEM_RESET
+    | MidiStatus.ACTIVE_SENDING;
