@@ -22,7 +22,6 @@ npm i noon-io
 
 Send a A4 `NOTE ON` message on all available MIDI outputs
 
-
 ```typescript
 import * as NIO from 'noon-io';
 
@@ -135,6 +134,37 @@ output.send(NIO.channel(2).bankSelectMSB(0));
 output.send(NIO.channel(2).bankSelectLSB(0));
 // Select program 109 from bank 1
 output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
+```
+
+# 🕒 Subscribing to real time system MIDI message
+
+Real time system MIDI messages can be handled by calling the `subscribe` function and passing the
+MIDI real time status of interest.
+
+⚠️ It is important to notice that subscription **must** be made before reading on a given MIDI port.
+
+```typescript
+import * as NIO from 'noon-io';
+
+const onTimingClock = NIO.subscribe(NIO.MidiStatus.TIMING_CLOCK, (status) => {
+    console.log(status); // logs any time a timing clock event is sent on an input we're listening to
+})
+
+// Gain access to the Web MIDI API
+const midiAccess = await navigator.requestMIDIAccess();
+
+/*
+ * If the message contains a real time status, 
+ * the event handler we've been attaching to the subscription will be called
+ */
+for (const input of midiAccess.inputs.values()) {
+    input.onmidimessage = (msg) => {
+        NIO.readMidiMessage(msg.data); 
+    };
+}
+
+// The subscription can be cancelled later if needed
+onTimingClock.unsubscribe();
 ```
 
 # 🚧 Supported Messages

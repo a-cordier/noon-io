@@ -1,10 +1,10 @@
 import * as API from '../api/factory.js';
 
-class RealTimeEventSubscription implements API.Subscription {
+class RealTimeEventSubscription<T extends API.RealTimeStatus> implements API.Subscription {
     constructor(
-        private readonly status: API.RealTimeStatus,
+        private readonly status: T,
         private readonly observers: Map<API.MidiStatus, Set<API.EventHandler<API.RealTimeStatus>>>,
-        private readonly handler: API.EventHandler<API.RealTimeStatus>,
+        private readonly handler: API.EventHandler<T>,
     ) {}
 
     unsubscribe(): void {
