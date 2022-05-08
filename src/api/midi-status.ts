@@ -142,6 +142,9 @@ export enum MidiStatus {
     PITCH_BEND = 0x0e,
 }
 
+/**
+ * A subset of the MIDI Status enumeration that expresses real time system messages.
+ */
 export type RealTimeStatus =
     | MidiStatus.TIMING_CLOCK
     | MidiStatus.START

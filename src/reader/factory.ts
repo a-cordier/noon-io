@@ -3,7 +3,7 @@ import * as LIB from '../lib/factory.js';
 
 import { READERS } from './readers.js';
 
-function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> {
+function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData>|null {
     if (LIB.isRunningStatusChange(view, offset)) {
         const rawStatus = view.getUint8(offset) >>> 4; // leftmost bits gives the status
         const rawChannel = view.getUint8(offset) & 0xf; // rightmost bits gives the channel (starting from 0)
@@ -14,7 +14,7 @@ function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API
     }
 
     if (!READERS.has(LIB.RunningStatus.instance.status)) {
-        throw new RangeError(`Unknwon MIDI Channel Status ${LIB.RunningStatus.instance.status}`);
+        return null;
     }
 
     const read = READERS.get(LIB.RunningStatus.instance.status);
@@ -33,20 +33,19 @@ function readRealTimeMessage(view: DataView, offset: number): API.MidiMessage<AP
     return null;
 }
 
-function readSystemMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> {
+function readSystemMessage(view: DataView, offset: number): null {
     offset += 1; // skip 0XFF meta event marker
-    const status = view.getUint8(offset) as API.MidiStatus;
+    const status = view.getUint8(offset) as API.RealTimeStatus;
     offset += 1;
 
-    if (!READERS.has(status)) {
-        throw new RangeError(`Unknwon MIDI System Status ${LIB.RunningStatus.instance.status}`);
+    if (READERS.has(status)) {
+        LIB.notifyObservers(status);
     }
 
-    const read = READERS.get(status);
-    return read(view, offset);
+    return null;
 }
 
-export function readMidiMessage(data: Uint8Array, offset = 0): API.MidiMessage<API.MidiData> {
+export function readMidiMessage(data: Uint8Array, offset = 0): API.MidiMessage<API.MidiData>|null {
     const view = new DataView(data.buffer);
     if (LIB.isSystemMessage(view, offset)) {
         return readSystemMessage(view, offset);
