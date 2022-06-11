@@ -1,9 +1,9 @@
-import * as API from '../api/factory.js';
-import * as LIB from '../lib/factory.js';
+import * as API from "../api/factory.js";
+import * as LIB from "../lib/factory.js";
 
-import { READERS } from './readers.js';
+import { READERS } from "./readers.js";
 
-function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData>|null {
+function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
     if (LIB.isRunningStatusChange(view, offset)) {
         const rawStatus = view.getUint8(offset) >>> 4; // leftmost bits gives the status
         const rawChannel = view.getUint8(offset) & 0xf; // rightmost bits gives the channel (starting from 0)
@@ -45,7 +45,10 @@ function readSystemMessage(view: DataView, offset: number): null {
     return null;
 }
 
-export function readMidiMessage(data: Uint8Array, offset = 0): API.MidiMessage<API.MidiData>|null {
+export function readMidiMessage(
+    data: Uint8Array,
+    offset = 0,
+): API.MidiMessage<API.MidiData> | null {
     const view = new DataView(data.buffer);
     if (LIB.isSystemMessage(view, offset)) {
         return readSystemMessage(view, offset);

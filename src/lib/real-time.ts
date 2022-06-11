@@ -1,4 +1,4 @@
-import * as API from '../api/factory.js';
+import * as API from "../api/factory.js";
 
 class RealTimeEventSubscription<T extends API.RealTimeStatus> implements API.Subscription {
     constructor(
