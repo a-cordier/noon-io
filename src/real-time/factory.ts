@@ -1,5 +1,5 @@
-import * as API from '../api/factory.js';
-import * as LIB from '../lib/factory.js';
+import * as API from "../api/factory.js";
+import * as LIB from "../lib/factory.js";
 
 /**
  * subscribe to real time system MIDI messages

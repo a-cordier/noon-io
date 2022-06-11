@@ -1,4 +1,4 @@
-import * as API from '../api/factory.js';
+import * as API from "../api/factory.js";
 
 /**
  * @internal

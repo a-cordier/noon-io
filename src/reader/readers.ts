@@ -1,6 +1,6 @@
-import * as API from '../api/factory.js';
-import * as LIB from '../lib/factory.js';
-import * as IMP from './deserializers.js';
+import * as API from "../api/factory.js";
+import * as LIB from "../lib/factory.js";
+import * as IMP from "./deserializers.js";
 
 const READERS = new Map<API.MidiStatus, LIB.MidiMessageReader<API.MidiData>>();
 

@@ -1,6 +1,6 @@
-import * as API from '../api/factory.js';
+import * as API from "../api/factory.js";
 
-import { WRITERS } from './writers.js';
+import { WRITERS } from "./writers.js";
 
 export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8Array {
     if (WRITERS.has(message.status)) {
