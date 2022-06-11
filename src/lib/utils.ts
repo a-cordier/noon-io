@@ -1,4 +1,4 @@
-import * as API from '../api/factory.js';
+import * as API from "../api/factory.js";
 
 export function times<T>(length: number, op: (idx: number) => T): T[] {
     return Array.from({ length }).map((_, i) => op(i));
@@ -27,11 +27,11 @@ export function readVariableLengthQuantity(
         last += next;
         last <<= 7;
     }
-    throw new RangeError('4 bytes limit exceeded for variable length quantity');
+    throw new RangeError("4 bytes limit exceeded for variable length quantity");
 }
 
 export function readString(view: DataView, offset: number, length: number) {
-    return times(length, (i) => String.fromCharCode(view.getUint8(offset + i))).join('');
+    return times(length, (i) => String.fromCharCode(view.getUint8(offset + i))).join("");
 }
 
 export function readBytes(view: DataView, offset: number, length: number): number[] {

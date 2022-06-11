@@ -1,4 +1,4 @@
-import { MidiStatus } from './midi-status';
+import { MidiStatus } from "./midi-status";
 
 export interface MidiMessage<T> {
     /**
