@@ -50,7 +50,7 @@ export interface MidiDataSerializer<T> {
 export interface MidiMessageWriter<T> {
     /**
      * @internal
-     * @param message: A noon formated MIDI message
+     * @param message: A noon formatted MIDI message
      * @returns The MIDI message as a MIDI encoded Uint8Array
      */
     (message: API.MidiMessage<T>): Uint8Array;
@@ -73,7 +73,7 @@ export interface StatusEncoder {
  *
  * Helper class for channel MIDI messages that relies on the Running Status
  *
- * This class is meant to be shared accross module and should be accessed through the `instance` getter
+ * This class is meant to be shared across module and should be accessed through the `instance` getter
  *
  */
 export class RunningStatus {

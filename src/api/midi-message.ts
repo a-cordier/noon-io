@@ -57,7 +57,7 @@ export interface MidiNote extends NumberValue {
 }
 
 /**
- * For MIDI note aftertouchs, value holds the amount of after touch to be processed
+ * For MIDI note after touch, value holds the amount of after touch to be processed
  */
 export interface MidiNoteAfterTouch extends NumberValue {
     note: number;
