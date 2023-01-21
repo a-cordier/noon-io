@@ -30,6 +30,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write 'src/**/*.ts'",
     "format:check": "prettier --check 'src/**/*.ts'",
+    "format:yaml": "prettier --write --tab-width 2 '**/*.yaml'",
     "typedoc": "typedoc --out docs src/index.ts",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "prepublish": "npm run build",
