@@ -8,7 +8,7 @@ Development has just started and until v1.0.0 has been released, noon-io should 
 
 # 🗒️ API Documentation
 
-A more detailed documentation of noon-io can be found [here](https://a-cordier.github.io/noon-io/docs).
+A more detailed documentation of noon-io can be found [here](https://a-cordier.github.io/noon-io).
 
 # 🚀 Getting started
 
