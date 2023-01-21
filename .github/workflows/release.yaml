@@ -10,7 +10,8 @@ on:
       - "main"
 
 jobs:
-  test:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +20,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 18.4.x
           cache: npm
 
       - name: Install
