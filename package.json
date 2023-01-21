@@ -29,6 +29,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write 'src/**/*.ts'",
+    "typedoc": "typedoc --out docs src/index.ts",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "prepublish": "npm run build",
     "release:patch": "npm version patch && git push && npm publish"
