@@ -4,8 +4,6 @@ on:
   push:
     branches: ["main"]
 
-  workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
@@ -25,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate docs
-        run: npm run typedoc
+        run: npx typedoc --out docs src/index.ts
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
