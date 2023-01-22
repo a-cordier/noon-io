@@ -23,13 +23,6 @@ export interface MidiMessage<T> {
      * Can be empty for some system messages (e.g. a End Of Track message)
      */
     data?: T;
-
-    /**
-     * Metadata is a convenience field that can be used to store any additional information
-     * required by code that processes the message
-     */
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    metadata?: unknown;
 }
 /**
  * Messages that hold a single value implements this interface
