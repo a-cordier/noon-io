@@ -38,4 +38,8 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+          GIT_AUTHOR_NAME: "Antoine CORDIER"
+          GIT_AUTHOR_EMAIL: "com.acordier@gmail.com"
+          GIT_COMMITTER_NAME: "Antoine CORDIER"
+          GIT_COMMITTER_EMAIL: "com.acordier@gmail.com"
+        run: npm run release -- --ci
