@@ -33,8 +33,8 @@ export class NoteDeserializer implements LIB.MidiDataDeserializer<API.MidiNote> 
         const note = LIB.MidiNotes[value];
         return {
             data: {
-                value: view.getUint8(offset),
-                velocity: view.getUint8(offset + 1),
+                value,
+                velocity,
                 frequency: note.frequency,
                 name: note.name,
             },
