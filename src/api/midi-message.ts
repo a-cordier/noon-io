@@ -54,6 +54,8 @@ export interface MidiNote extends NumberValue {
      * the velocity to apply to the note
      */
     velocity: number;
+    frequency: number;
+    name: string;
 }
 
 /**

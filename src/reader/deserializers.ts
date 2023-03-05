@@ -28,10 +28,15 @@ export class StringValueDeserializer implements LIB.MidiDataDeserializer<API.Str
 
 export class NoteDeserializer implements LIB.MidiDataDeserializer<API.MidiNote> {
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<API.MidiNote> {
+        const value = view.getUint8(offset);
+        const velocity = view.getUint8(offset + 1);
+        const note = LIB.MidiNotes[value];
         return {
             data: {
                 value: view.getUint8(offset),
                 velocity: view.getUint8(offset + 1),
+                frequency: note.frequency,
+                name: note.name,
             },
             offset: offset + 2,
         };
