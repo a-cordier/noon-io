@@ -1,5 +1,12 @@
 
 
+## 0.1.1 (2023-03-05)
+
+
+### Bug Fixes
+
+* use previously read values when building midi note ([7c74d7e](https://github.com/a-cordier/noon-io/commit/7c74d7e03d3f54fea37267f719d375568f2910d0))
+
 # 0.1.0 (2023-03-05)
 
 
