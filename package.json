@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "description": "Easy io for the Web MIDI API",
   "author": "Antoine Cordier",
-  "license": "MIT",
+  "license": "apache-2.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -35,6 +35,8 @@
     "format": "prettier --write 'src/**/*.ts'",
     "format:check": "prettier --check 'src/**/*.ts'",
     "format:yaml": "prettier --write --tab-width 2 '**/*.yaml'",
+    "license:check": "license-check-and-add check -f lca-config.json",
+    "license:fix": "license-check-and-add add -f lca-config.json -r",
     "typedoc": "typedoc --out docs src/index.ts",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "release": "release-it"
@@ -48,6 +50,7 @@
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "license-check-and-add": "^4.0.5",
     "prettier": "^2.5.1",
     "release-it": "^15.6.0",
     "tsc-alias": "^1.6.1",
