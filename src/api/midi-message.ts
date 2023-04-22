@@ -69,7 +69,13 @@ export interface MidiNote extends NumberValue {
      * the velocity to apply to the note
      */
     velocity: number;
+    /**
+     * the center frequency of the note, in hertz
+     */
     frequency: number;
+    /**
+     * the name of the note, e.g. "A4" for midi value 69
+     */
     name: string;
 }
 
