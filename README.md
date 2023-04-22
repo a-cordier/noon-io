@@ -1,5 +1,9 @@
 # 🎹 noon-io
 
+![tests](https://github.com/a-cordier/noon-io/actions/workflows/tests.yaml/badge.svg)
+![release](https://github.com/a-cordier/noon-io/actions/workflows/release.yaml/badge.svg)
+![doc](https://github.com/a-cordier/noon-io/actions/workflows/doc.yaml/badge.svg)
+
 Easy io for the [Web MIDI API](https://www.w3.org/TR/webmidi/)
 
 ## 🚨 Disclaimer

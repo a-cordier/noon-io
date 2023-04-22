@@ -1,4 +1,4 @@
-name: Publish doc
+name: Docs
 
 on:
   workflow_run:
@@ -22,7 +22,7 @@ jobs:
   publish-docs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Publish doc
+    name: Publish docs
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
