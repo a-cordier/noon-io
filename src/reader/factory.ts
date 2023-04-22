@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as API from "../api/factory.js";
-import * as LIB from "../lib/factory.js";
+import * as LIB from "../internal/factory.js";
 
 import { READERS } from "./readers.js";
 

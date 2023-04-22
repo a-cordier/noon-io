@@ -15,7 +15,7 @@
  */
 import test, { ExecutionContext } from "ava";
 
-import * as UTILS from "../lib/utils.js";
+import * as UTILS from "../internal/utils.js";
 import * as DESER from "./deserializers.js";
 
 test("NumberValueSerializer should read one byte and return 129", (t: ExecutionContext<unknown>) => {
