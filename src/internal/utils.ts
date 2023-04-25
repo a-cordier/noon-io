@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as API from "../api/factory.js";
+import * as API from "../api/index.js";
 
 export function times<T>(length: number, op: (idx: number) => T): T[] {
     return Array.from({ length }).map((_, i) => op(i));

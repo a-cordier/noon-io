@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as API from "../api/factory.js";
+import * as API from "../api/index.js";
 
 import { WRITERS } from "./writers.js";
 

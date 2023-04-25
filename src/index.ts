@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from "./api/factory.js";
-export * from "./real-time/factory.js";
-export * from "./reader/factory.js";
-export * from "./writer/factory.js";
+export * from "./api/index.js";
+export * from "./real-time/index.js";
+export * from "./reader/index.js";
+export * from "./writer/index.js";

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as API from "../api/factory.js";
-import * as LIB from "../internal/factory.js";
+import * as API from "../api/index.js";
+import * as LIB from "../internal/index.js";
 
 export class NumberValueSerializer implements LIB.MidiDataDeserializer<API.NumberValue> {
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<API.NumberValue> {

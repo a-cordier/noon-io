@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as API from "../api/factory.js";
-import * as LIB from "../internal/factory.js";
+import * as API from "../api/index.js";
+import * as LIB from "../internal/index.js";
 import * as IMP from "./deserializers.js";
 
 const READERS = new Map<API.MidiStatus, LIB.MidiMessageReader<API.MidiData>>();
