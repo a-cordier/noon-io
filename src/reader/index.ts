@@ -48,11 +48,31 @@ function readSystemMessage(view: DataView, offset: number): API.MidiMessage<API.
     return null;
 }
 
-export function readMidiMessage(data: Uint8Array, offset = 0): void {
-    const stream = LIB.messageStream;
-    const view = new DataView(data.buffer);
-    if (LIB.isSystemMessage(view, offset)) {
-        return stream.next(readSystemMessage(view, offset));
+export type MetadataDecorator = () => Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+export interface ReaderOpts {
+    decorators?: Map<API.MidiStatus, MetadataDecorator>;
+}
+
+function defaultOpts(): ReaderOpts {
+    return {
+        decorators: new Map<API.MidiStatus, MetadataDecorator>(),
+    };
+}
+
+export function read(data: Uint8Array, opts = defaultOpts()): void {
+    const message = readMidi(data);
+    if (opts.decorators.has(message.status)) {
+        const decorator = opts.decorators.get(message.status);
+        message.meta = decorator();
     }
-    stream.next(readChannelMessage(view, offset));
+    LIB.messageStream.next(message);
+}
+
+function readMidi(data: Uint8Array): API.MidiMessage<API.MidiData> {
+    const view = new DataView(data.buffer);
+    if (LIB.isSystemMessage(view, 0)) {
+        return readSystemMessage(view, 0);
+    }
+    return readChannelMessage(view, 0);
 }

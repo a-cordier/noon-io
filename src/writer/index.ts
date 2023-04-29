@@ -17,7 +17,7 @@ import * as API from "../api/index.js";
 
 import { WRITERS } from "./writers.js";
 
-export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8Array {
+export function write(message: API.MidiMessage<API.MidiData>): Uint8Array {
     if (WRITERS.has(message.status)) {
         const write = WRITERS.get(message.status);
         return write(message);
@@ -29,14 +29,14 @@ export function writeMidiMessage(message: API.MidiMessage<API.MidiData>): Uint8A
  * For a dedicated MIDI channel, noon-io offers a more concise way of writing MIDI messages
  * using factory functions
  *
- * A factory can be instanciated by calling the [channel](https://a-cordier.github.io/noon-io/docs/modules.html#channel)
+ * A factory can be instantiated by calling the [channel](https://a-cordier.github.io/noon-io/docs/modules.html#channel)
  * function
  */
 export interface ChannelMessageFactory {
     /**
      * Creates a MIDI Note On message as a Uint8Array
      * @param value the MIDI value of the note
-     * @param velocity the velocity of the note (if ommited, the default value is 64)
+     * @param velocity the velocity of the note (if omitted, the default value is 64)
      */
     noteOn(value: number, velocity?: number): Uint8Array;
     /**
@@ -86,7 +86,7 @@ export interface ChannelMessageFactory {
 export function channel(channel: number): ChannelMessageFactory {
     return {
         noteOn(value: number, velocity = 64): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.NOTE_ON,
                 channel,
                 data: {
@@ -96,7 +96,7 @@ export function channel(channel: number): ChannelMessageFactory {
             });
         },
         noteOff(value: number): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.NOTE_OFF,
                 channel,
                 data: {
@@ -106,7 +106,7 @@ export function channel(channel: number): ChannelMessageFactory {
             });
         },
         controlChange(control: number, value: number): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.CONTROL_CHANGE,
                 channel,
                 data: {
@@ -116,7 +116,7 @@ export function channel(channel: number): ChannelMessageFactory {
             });
         },
         bankSelectMSB(value: number): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.CONTROL_CHANGE,
                 channel,
                 data: {
@@ -126,7 +126,7 @@ export function channel(channel: number): ChannelMessageFactory {
             });
         },
         bankSelectLSB(value: number): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.CONTROL_CHANGE,
                 channel,
                 data: {
@@ -136,7 +136,7 @@ export function channel(channel: number): ChannelMessageFactory {
             });
         },
         programChange(value: number): Uint8Array {
-            return writeMidiMessage({
+            return write({
                 status: API.MidiStatus.PROGRAM_CHANGE,
                 channel,
                 data: {
