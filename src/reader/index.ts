@@ -39,7 +39,7 @@ function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API
     return message;
 }
 
-function readRealTimeMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
+function readSystemMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
     const status = view.getUint8(offset);
     if (READERS.has(status)) {
         const read = READERS.get(status);
@@ -48,28 +48,11 @@ function readRealTimeMessage(view: DataView, offset: number): API.MidiMessage<AP
     return null;
 }
 
-function readSystemMessage(view: DataView, offset: number): null {
-    offset += 1; // skip 0XFF meta event marker
-    const status = view.getUint8(offset) as API.RealTimeStatus;
-    offset += 1;
-
-    if (READERS.has(status)) {
-        LIB.notifyObservers(status);
-    }
-
-    return null;
-}
-
-export function readMidiMessage(
-    data: Uint8Array,
-    offset = 0,
-): API.MidiMessage<API.MidiData> | null {
+export function readMidiMessage(data: Uint8Array, offset = 0): void {
+    const stream = LIB.messageStream;
     const view = new DataView(data.buffer);
     if (LIB.isSystemMessage(view, offset)) {
-        return readSystemMessage(view, offset);
+        return stream.next(readSystemMessage(view, offset));
     }
-    if (LIB.isRealTimeMessage(view, offset)) {
-        return readRealTimeMessage(view, offset);
-    }
-    return readChannelMessage(view, offset);
+    stream.next(readChannelMessage(view, offset));
 }

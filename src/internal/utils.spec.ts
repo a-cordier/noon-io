@@ -80,8 +80,3 @@ test("readVariableLengthQuantity should return 8192 for 0xC0|0x00", (t: Executio
 test("channelStatusEncoder should set a Note On MIDI status directed to channel 1", (t: ExecutionContext<unknown>) => {
     t.is(0b10010000, UTILS.channelStatusEncoder(MidiStatus.NOTE_ON, 1));
 });
-
-test("isExclusiveMessage should return true if the status is 0xf0", (t: ExecutionContext<unknown>) => {
-    const view = UTILS.getDataView([0b11110000]);
-    t.true(UTILS.isExclusiveMessage(view, 0));
-});

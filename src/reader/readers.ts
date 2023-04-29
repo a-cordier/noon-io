@@ -111,4 +111,24 @@ READERS.set(
     createReader<void>(API.MidiStatus.SYSTEM_RESET, new IMP.EmptyMessageDeserializer()),
 );
 
+READERS.set(
+    API.MidiStatus.MTC,
+    createReader<void>(API.MidiStatus.MTC, new IMP.OneByteBypassedDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.SONG_POSITION,
+    createReader<void>(API.MidiStatus.MTC, new IMP.TwoBytesBypassedDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.SONG_SELECT,
+    createReader<void>(API.MidiStatus.MTC, new IMP.OneByteBypassedDeserializer()),
+);
+
+READERS.set(
+    API.MidiStatus.TUNE_REQUEST,
+    createReader<void>(API.MidiStatus.MTC, new IMP.EmptyMessageDeserializer()),
+);
+
 export { READERS };

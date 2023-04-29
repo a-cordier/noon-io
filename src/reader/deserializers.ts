@@ -98,8 +98,7 @@ export class PitchBendDeserializer implements LIB.MidiDataDeserializer<API.MidiP
 
 export class SysexDeserializer implements LIB.MidiDataDeserializer<API.SysexValue> {
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<API.SysexValue> {
-        offset += 1;
-        let endOffset = offset;
+        let endOffset = offset + 1;
 
         const boundary = 0x7f;
 
@@ -126,6 +125,22 @@ export class EmptyMessageDeserializer implements LIB.MidiDataDeserializer<void> 
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<void> {
         return {
             offset: offset + 1,
+        };
+    }
+}
+
+export class OneByteBypassedDeserializer implements LIB.MidiDataDeserializer<void> {
+    deserialize(view: DataView, offset: number): LIB.DeserializationResult<void> {
+        return {
+            offset: offset + 1,
+        };
+    }
+}
+
+export class TwoBytesBypassedDeserializer implements LIB.MidiDataDeserializer<void> {
+    deserialize(view: DataView, offset: number): LIB.DeserializationResult<void> {
+        return {
+            offset: offset + 2,
         };
     }
 }
