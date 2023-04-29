@@ -99,15 +99,25 @@ export class PitchBendDeserializer implements LIB.MidiDataDeserializer<API.MidiP
 export class SysexDeserializer implements LIB.MidiDataDeserializer<API.SysexValue> {
     deserialize(view: DataView, offset: number): LIB.DeserializationResult<API.SysexValue> {
         offset += 1;
-        const vlq = LIB.readVariableLengthQuantity(view, offset);
-        offset = vlq.offset;
-        const bytes = LIB.readBytes(view, offset, vlq.value);
-        offset += vlq.value;
+        let endOffset = offset;
+
+        const boundary = 0x7f;
+
+        while (endOffset < view.byteLength) {
+            if (view.getUint8(endOffset) === boundary) {
+                break;
+            }
+            endOffset += 1;
+        }
+
+        const data = view.buffer.slice(offset + 1, endOffset);
+        const value = new Uint8Array(data);
+
         return {
             data: {
-                value: bytes,
+                value,
             },
-            offset,
+            offset: endOffset + 1,
         };
     }
 }

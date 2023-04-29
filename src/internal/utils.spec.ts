@@ -81,7 +81,7 @@ test("channelStatusEncoder should set a Note On MIDI status directed to channel 
     t.is(0b10010000, UTILS.channelStatusEncoder(MidiStatus.NOTE_ON, 1));
 });
 
-test("isSystemMessage should return true for all bits in byte are set to 1", (t: ExecutionContext<unknown>) => {
-    const view = UTILS.getDataView([0b11111111]);
-    t.true(UTILS.isSystemMessage(view, 0));
+test("isExclusiveMessage should return true if the status is 0xf0", (t: ExecutionContext<unknown>) => {
+    const view = UTILS.getDataView([0b11110000]);
+    t.true(UTILS.isExclusiveMessage(view, 0));
 });

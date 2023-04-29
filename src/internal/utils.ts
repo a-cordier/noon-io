@@ -53,9 +53,9 @@ export function readBytes(view: DataView, offset: number, length: number): numbe
     return times<number>(length, (i) => view.getUint8(offset + i));
 }
 
-export function isSystemMessage(view: DataView, offset: number): boolean {
+export function isExclusiveMessage(view: DataView, offset: number): boolean {
     const status = view.getUint8(offset);
-    return 0xff === status;
+    return 0xf0 === status;
 }
 
 export function isRealTimeMessage(view: DataView, offset: number): boolean {

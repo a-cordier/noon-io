@@ -59,7 +59,7 @@ export type NumberValue = SingleValue<number>;
 /**
  * Alias for sysex values, expressed as an array of bytes
  */
-export type SysexValue = SingleValue<number[]>;
+export type SysexValue = SingleValue<Uint8Array>;
 
 /**
  * For MIDI notes, value holds the MIDI value of the note
