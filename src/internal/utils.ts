@@ -53,19 +53,19 @@ export function readBytes(view: DataView, offset: number, length: number): numbe
     return times<number>(length, (i) => view.getUint8(offset + i));
 }
 
-export function isExclusiveMessage(view: DataView, offset: number): boolean {
-    const status = view.getUint8(offset);
-    return 0xf0 === status;
-}
-
-export function isRealTimeMessage(view: DataView, offset: number): boolean {
+export function isSystemMessage(view: DataView, offset: number) {
     switch (view.getUint8(offset)) {
+        case API.MidiStatus.MTC:
+        case API.MidiStatus.SONG_POSITION:
+        case API.MidiStatus.SONG_SELECT:
+        case API.MidiStatus.TUNE_REQUEST:
         case API.MidiStatus.TIMING_CLOCK:
         case API.MidiStatus.START:
         case API.MidiStatus.STOP:
         case API.MidiStatus.CONTINUE:
         case API.MidiStatus.SYSTEM_RESET:
         case API.MidiStatus.ACTIVE_SENDING:
+        case API.MidiStatus.SYSEX:
             return true;
         default:
             return false;
