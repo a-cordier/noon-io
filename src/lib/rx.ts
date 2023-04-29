@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Subscription } from "rxjs";
-import * as LIB from "../internal/index.js";
+import { Observable, filter } from "rxjs";
 import * as API from "../api/index.js";
+import * as LIB from "../internal/index.js";
 
-export type MidiMessageHandler = (message: API.MidiMessage<API.MidiData>) => Subscription;
+export const Stream = LIB.messageStream;
 
-export function subscribe(callback: MidiMessageHandler): Subscription {
-    return LIB.messageStream.subscribe(callback);
+export function onMessage(status: API.MidiStatus): Observable<API.MidiMessage<API.MidiData>> {
+    return LIB.messageStream.pipe(filter((message) => message.status === status));
 }
