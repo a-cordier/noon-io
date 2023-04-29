@@ -14,15 +14,37 @@
  * limitations under the License.
  */
 import * as API from "../api/index.js";
+import { messageStream } from "../internal/rx.js";
 
 import { WRITERS } from "./writers.js";
 
-export function write(message: API.MidiMessage<API.MidiData>): Uint8Array {
+export interface WriterOpts {
+    /**
+     * If set to true, the writer will publish the message to the message stream
+     * default to false
+     */
+    publish: boolean;
+}
+
+function defaultOpts() {
+    return {
+        publish: false,
+    };
+}
+
+export function write(message: API.MidiMessage<API.MidiData>, opts = defaultOpts()): Uint8Array {
     if (WRITERS.has(message.status)) {
+        if (opts.publish) {
+            messageStream.next(message);
+        }
         const write = WRITERS.get(message.status);
         return write(message);
     }
     throw new RangeError(`Unknown MIDI Status ${message.status}`);
+}
+
+export function writer(opts = defaultOpts()) {
+    return (message: API.MidiMessage<API.MidiData>) => write(message, opts);
 }
 
 /**

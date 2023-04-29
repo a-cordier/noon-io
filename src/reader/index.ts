@@ -60,6 +60,8 @@ function defaultOpts(): ReaderOpts {
     };
 }
 
+export type MessageReader = (data: Uint8Array, opts?: ReaderOpts) => void;
+
 export function read(data: Uint8Array, opts = defaultOpts()): void {
     const message = readMidi(data);
     if (opts.decorators.has(message.status)) {
@@ -67,6 +69,10 @@ export function read(data: Uint8Array, opts = defaultOpts()): void {
         message.meta = decorator();
     }
     LIB.messageStream.next(message);
+}
+
+export function reader(opts?: ReaderOpts): MessageReader {
+    return (data: Uint8Array): void => read(data, opts);
 }
 
 function readMidi(data: Uint8Array): API.MidiMessage<API.MidiData> {

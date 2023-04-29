@@ -42,7 +42,7 @@ for (const output of midiAccess.outputs.values()) {
             velocity: 127
         }
     };
-    output.send(NIO.writeMidiMessage(noteOnMessage));
+    output.send(NIO.write(noteOnMessage));
 }
 ```
 
@@ -63,25 +63,51 @@ For more information about noon-io factories, you can checkout this [documentati
 
 ## 📥 Read MIDI messages
 
-Print messages received from any available MIDI input in the console.
-
 ```typescript
 import * as NIO from 'noon-io';
 
 // Gain access to the Web MIDI API
 const midiAccess = await navigator.requestMIDIAccess();
 
-// Log messages received from any available input
+// Bind NIO reader to all midi inputs
+for (const input of midiAccess.inputs.values()) {
+    input.onmidimessage = NIO.read;
+}
+```
+
+# 🕒 Subscribing to the messages stream
+
+Once read, messages are exposed through the `subscribe` function 
+
+⚠️ It is important to notice that subscription **must** be made before reading on a given MIDI port.
+
+```typescript
+import * as NIO from 'noon-io';
+
+const onTimingClock = NIO.subscribe(NIO.MidiStatus.TIMING_CLOCK, (status) => {
+    console.log(status); // logs any time a timing clock event is sent on an input we're listening to
+})
+
+// Gain access to the Web MIDI API
+const midiAccess = await navigator.requestMIDIAccess();
+
+/*
+ * If the message contains a real time status, 
+ * the event handler we've been attaching to the subscription will be called
+ */
 for (const input of midiAccess.inputs.values()) {
     input.onmidimessage = (msg) => {
-        console.log(NIO.readMidiMessage(msg.data));
+        NIO.readMidiMessage(msg.data); 
     };
 }
+
+// The subscription can be cancelled later if needed
+onTimingClock.unsubscribe();
 ```
 
 ## ⚗️ Bank Select / Program Change
 
-Sending a bank select followed by a program change can be achieved by sending two consecutives contol change messages before 
+Sending a bank select followed by a program change can be achieved by sending two consecutive control change messages before 
 sending the actual program change. 
 
 (The following has been tested on a Dave Smith Instruments Mopho device)
@@ -140,37 +166,6 @@ output.send(NIO.channel(2).bankSelectLSB(0));
 output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
 ```
 
-# 🕒 Subscribing to real time system MIDI message
-
-Real time system MIDI messages can be handled by calling the `subscribe` function and passing the
-MIDI real time status of interest.
-
-⚠️ It is important to notice that subscription **must** be made before reading on a given MIDI port.
-
-```typescript
-import * as NIO from 'noon-io';
-
-const onTimingClock = NIO.subscribe(NIO.MidiStatus.TIMING_CLOCK, (status) => {
-    console.log(status); // logs any time a timing clock event is sent on an input we're listening to
-})
-
-// Gain access to the Web MIDI API
-const midiAccess = await navigator.requestMIDIAccess();
-
-/*
- * If the message contains a real time status, 
- * the event handler we've been attaching to the subscription will be called
- */
-for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = (msg) => {
-        NIO.readMidiMessage(msg.data); 
-    };
-}
-
-// The subscription can be cancelled later if needed
-onTimingClock.unsubscribe();
-```
-
 # 🚧 Supported Messages
 
 ⚠️ Some of the following MIDI messages may not have been tested on a MIDI port (see the status section of the following tables)
@@ -197,8 +192,7 @@ onTimingClock.unsubscribe();
 |CONTINUE|✅|✅|Both read and write have not been tested
 |SYSTEM RESET|✅|✅|Both read and write have not been tested
 |ACTIVE SENDING|✅|✅|Both read and write have not been tested
-|SYSTEM EXCLUSIVE|❌|❌|Not Implemented
-|END OF SYSEX|❌|❌|Not Implemented
+|SYSTEM EXCLUSIVE|✅|❌|Reader has not been tested, writer is not implemented
 |MIDI TIME CODE|❌|❌|Not Implemented
 |SONG POSITION|❌|❌|Not Implemented
 |SONG SELECT|❌|❌|Not Implemented

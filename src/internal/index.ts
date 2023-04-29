@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 export * from "./api.js";
-export * from "./real-time.js";
 export * from "./utils.js";
 export * from "./notes.js";
 export * from "./rx.js";

@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 export * from "./api/index.js";
-export * from "./real-time/index.js";
 export * from "./reader/index.js";
 export * from "./writer/index.js";
+export * from "./lib/index.js";
