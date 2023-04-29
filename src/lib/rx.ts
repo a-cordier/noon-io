@@ -19,6 +19,6 @@ import * as LIB from "../internal/index.js";
 
 export const Stream = LIB.messageStream;
 
-export function onMessage(status: API.MidiStatus): Observable<API.MidiMessage<API.MidiData>> {
+export function observe(status: API.MidiStatus): Observable<API.MidiMessage<API.MidiData>> {
     return LIB.messageStream.pipe(filter((message) => message.status === status));
 }

@@ -77,32 +77,38 @@ for (const input of midiAccess.inputs.values()) {
 
 # 🕒 Subscribing to the messages stream
 
-Once read, messages are exposed through the `subscribe` function 
-
-⚠️ It is important to notice that subscription **must** be made before reading on a given MIDI port.
+Once read, messages are exposed through the `stream` rx Subject.
 
 ```typescript
 import * as NIO from 'noon-io';
 
-const onTimingClock = NIO.subscribe(NIO.MidiStatus.TIMING_CLOCK, (status) => {
-    console.log(status); // logs any time a timing clock event is sent on an input we're listening to
-})
+NIO.stream.subscribe(message => {
+    console.log(message);
+});
 
 // Gain access to the Web MIDI API
 const midiAccess = await navigator.requestMIDIAccess();
 
-/*
- * If the message contains a real time status, 
- * the event handler we've been attaching to the subscription will be called
- */
+// Bind NIO reader to all midi inputs
 for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = (msg) => {
-        NIO.readMidiMessage(msg.data); 
-    };
+    input.onmidimessage = NIO.read; // message is handle by the subscriber
 }
+```
 
-// The subscription can be cancelled later if needed
-onTimingClock.unsubscribe();
+# 🕒 Filtering messages
+
+In addition to the message stream, NIO provides a convenient `observe` function,
+which will return a observable of MIDI messages matching the given MIDI status.
+
+```typescript
+import * as NIO from 'noon-io';
+
+const { MidiStatus, observe } = NIO;
+
+observe(MidiStatus.CONTROL_CHANGE)
+    .subscribe(message => {
+        // handle control change message
+    });
 ```
 
 ## ⚗️ Bank Select / Program Change
