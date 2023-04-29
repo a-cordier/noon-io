@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from "./api.js";
-export * from "./real-time.js";
-export * from "./utils.js";
-export * from "./notes.js";
-export * from "./rx.js";
+import { Subscription } from "rxjs";
+import * as LIB from "../internal/index.js";
+import * as API from "../api/index.js";
+
+export type MidiMessageHandler = (message: API.MidiMessage<API.MidiData>) => Subscription;
+
+export function subscribe(callback: MidiMessageHandler): Subscription {
+    return LIB.messageStream.subscribe(callback);
+}

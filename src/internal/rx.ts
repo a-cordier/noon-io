@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from "./api.js";
-export * from "./real-time.js";
-export * from "./utils.js";
-export * from "./notes.js";
-export * from "./rx.js";
+import { Subject } from "rxjs";
+
+import * as API from "../api/index.js";
+
+export const messageStream = new Subject<API.MidiMessage<API.MidiData>>();

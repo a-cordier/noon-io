@@ -167,3 +167,9 @@ export type RealTimeStatus =
     | MidiStatus.CONTINUE
     | MidiStatus.SYSTEM_RESET
     | MidiStatus.ACTIVE_SENDING;
+
+export type SystemCommonStatus =
+    | MidiStatus.MTC
+    | MidiStatus.SONG_POSITION
+    | MidiStatus.SONG_SELECT
+    | MidiStatus.TUNE_REQUEST;

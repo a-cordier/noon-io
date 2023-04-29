@@ -38,6 +38,13 @@ export interface MidiMessage<T> {
      * Can be empty for some system messages (e.g. a End Of Track message)
      */
     data?: T;
+
+    /**
+     * The meta data associated with the message
+     * This can be used to store additional information about the message
+     * and implement custom logic when subscribing to the message stream.
+     */
+    meta?: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 /**
  * Messages that hold a single value implements this interface
