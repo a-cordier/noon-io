@@ -18,15 +18,15 @@ import * as API from "../api/index.js";
 /**
  * @internal
  */
-export interface DeserializationResult<T> {
-    data?: T;
+export interface DeserializationResult<T extends API.MidiStatus> {
+    data?: API.MidiData[T] | never;
     offset: number;
 }
 
 /**
  * @internal
  */
-export interface MidiDataDeserializer<T> {
+export interface MidiDataDeserializer<T extends API.MidiStatus> {
     /**
      * Read bytes and build an object of type T
      * @param view A DataView of an Uint8Array buffer holding MIDI encoding data
@@ -38,11 +38,11 @@ export interface MidiDataDeserializer<T> {
 /**
  * @internal
  */
-export interface MidiMessageReader<T> {
+export interface MidiMessageReader<T extends API.MidiStatus> {
     /**
      * @param   view A DataView of an Uint8Array buffer holding MIDI encoding data
      * @param   offset The offset where the read operation should start
-     * @returns The MIDI messag decoded from the DataView
+     * @returns The MIDI message decoded from the DataView
      */
     (view: DataView, offset: number): API.MidiMessage<T>;
 }
@@ -50,19 +50,19 @@ export interface MidiMessageReader<T> {
 /**
  * @internal
  */
-export interface MidiDataSerializer<T> {
+export interface MidiDataSerializer<T extends API.MidiStatus> {
     /**
      * @param data A DataView holding the Uint8Array buffer to write in
      * @param message The message to serialize to the DataView
      * @returns The number of bytes written to the DataView
      */
-    serialize(view: DataView, offset: number, message: T): void;
+    serialize(view: DataView, offset: number, message: API.MidiData[T]): void;
 }
 
 /**
  * @internal
  */
-export interface MidiMessageWriter<T> {
+export interface MidiMessageWriter<T extends API.MidiStatus> {
     /**
      * @internal
      * @param message: A noon formatted MIDI message

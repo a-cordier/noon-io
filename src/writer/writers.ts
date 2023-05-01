@@ -17,9 +17,9 @@ import * as API from "../api/index.js";
 import * as LIB from "../internal/index.js";
 import * as IMP from "./serializers.js";
 
-const WRITERS = new Map<API.MidiStatus, LIB.MidiMessageWriter<API.MidiData>>();
+const WRITERS = new Map<API.MidiStatus, LIB.MidiMessageWriter<API.MidiStatus>>();
 
-function createWriter<T>(
+function createWriter<T extends API.MidiStatus>(
     statusEncoder: LIB.StatusEncoder,
     serializer: LIB.MidiDataSerializer<T>,
     size: number,
@@ -36,17 +36,25 @@ function createWriter<T>(
 
 WRITERS.set(
     API.MidiStatus.NOTE_ON,
-    createWriter<API.MidiNote>(LIB.channelStatusEncoder, new IMP.NoteTriggerSerializer(), 3),
+    createWriter<API.MidiStatus.NOTE_ON>(
+        LIB.channelStatusEncoder,
+        new IMP.NoteOnSerializer(),
+        3,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.NOTE_OFF,
-    createWriter<API.MidiNote>(LIB.channelStatusEncoder, new IMP.NoteTriggerSerializer(), 3),
+    createWriter<API.MidiStatus.NOTE_OFF>(
+        LIB.channelStatusEncoder,
+        new IMP.NoteOffSerializer(),
+        3,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.CONTROL_CHANGE,
-    createWriter<API.MidiControlChange>(
+    createWriter<API.MidiStatus.CONTROL_CHANGE>(
         LIB.channelStatusEncoder,
         new IMP.ControlChangeSerializer(),
         3,
@@ -55,7 +63,7 @@ WRITERS.set(
 
 WRITERS.set(
     API.MidiStatus.NOTE_AFTER_TOUCH,
-    createWriter<API.MidiNoteAfterTouch>(
+    createWriter<API.MidiStatus.NOTE_AFTER_TOUCH>(
         LIB.channelStatusEncoder,
         new IMP.NoteAfterTouchSerializer(),
         3,
@@ -64,47 +72,83 @@ WRITERS.set(
 
 WRITERS.set(
     API.MidiStatus.CHANNEL_AFTER_TOUCH,
-    createWriter<API.NumberValue>(LIB.channelStatusEncoder, new IMP.NumberValueSerializer(), 2),
+    createWriter<API.MidiStatus.CHANNEL_AFTER_TOUCH>(
+        LIB.channelStatusEncoder,
+        new IMP.ProgramChangeSerializer(),
+        2,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.PROGRAM_CHANGE,
-    createWriter<API.NumberValue>(LIB.channelStatusEncoder, new IMP.NumberValueSerializer(), 2),
+    createWriter<API.MidiStatus.PROGRAM_CHANGE>(
+        LIB.channelStatusEncoder,
+        new IMP.ProgramChangeSerializer(),
+        2,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.PITCH_BEND,
-    createWriter<API.MidiPitchBend>(LIB.channelStatusEncoder, new IMP.PitchBendSerializer(), 3),
+    createWriter<API.MidiStatus.PITCH_BEND>(
+        LIB.channelStatusEncoder,
+        new IMP.PitchBendSerializer(),
+        3,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.TIMING_CLOCK,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.TIMING_CLOCK>(
+        LIB.systemStatusEncoder,
+        new IMP.TimingClockSerializer(),
+        1,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.START,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.START>(
+        LIB.systemStatusEncoder,
+        new IMP.StartSerializer(),
+        1,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.CONTINUE,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.CONTINUE>(
+        LIB.systemStatusEncoder,
+        new IMP.ContinueSerializer(),
+        1,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.STOP,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.STOP>(
+        LIB.systemStatusEncoder,
+        new IMP.StopSerializer(),
+        1,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.ACTIVE_SENDING,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.ACTIVE_SENDING>(
+        LIB.systemStatusEncoder,
+        new IMP.ActiveSendingSerializer(),
+        1,
+    ),
 );
 
 WRITERS.set(
     API.MidiStatus.SYSTEM_RESET,
-    createWriter<void>(LIB.systemStatusEncoder, new IMP.NoopSerializer(), 1),
+    createWriter<API.MidiStatus.SYSTEM_RESET>(
+        LIB.systemStatusEncoder,
+        new IMP.SystemResetSerializer(),
+        1,
+    ),
 );
 
 export { WRITERS };

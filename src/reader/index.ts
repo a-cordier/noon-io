@@ -18,7 +18,10 @@ import * as LIB from "../internal/index.js";
 
 import { READERS } from "./readers.js";
 
-function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
+function readChannelMessage(
+    view: DataView,
+    offset: number,
+): API.MidiMessage<API.MidiStatus> | null {
     if (LIB.isRunningStatusChange(view, offset)) {
         const rawStatus = view.getUint8(offset) >>> 4; // leftmost bits gives the status
         const rawChannel = view.getUint8(offset) & 0xf; // rightmost bits gives the channel (starting from 0)
@@ -39,7 +42,10 @@ function readChannelMessage(view: DataView, offset: number): API.MidiMessage<API
     return message;
 }
 
-function readSystemMessage(view: DataView, offset: number): API.MidiMessage<API.MidiData> | null {
+function readSystemMessage(
+    view: DataView,
+    offset: number,
+): API.MidiMessage<API.MidiStatus> | null {
     const status = view.getUint8(offset);
     if (READERS.has(status)) {
         const read = READERS.get(status);
@@ -48,34 +54,80 @@ function readSystemMessage(view: DataView, offset: number): API.MidiMessage<API.
     return null;
 }
 
-export type MetadataDecorator = () => Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+export type MetadataDecorator<T extends API.MidiStatus> = (
+    message: API.MidiMessage<T>,
+) => Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+type MetadataDecorators = {
+    [T in API.MidiStatus]: MetadataDecorator<T>;
+};
 
 export interface ReaderOpts {
-    decorators?: Map<API.MidiStatus, MetadataDecorator>;
+    decorators?: MetadataDecorators;
 }
 
-function defaultOpts(): ReaderOpts {
-    return {
-        decorators: new Map<API.MidiStatus, MetadataDecorator>(),
-    };
+function decorate<T extends API.MidiStatus>(
+    message: API.MidiMessage<T>,
+    decorators: MetadataDecorators,
+): API.MidiMessage<T> {
+    const decorator = decorators[message.status];
+    if (decorator) {
+        return {
+            ...message,
+            meta: decorator(message),
+        };
+    }
+    return message;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+function noopDecorator<T extends API.MidiStatus>(
+    message: API.MidiMessage<T>,
+): Record<string, any> {
+    return {};
+}
+
+function assignDefaultReaderOpts(opts: Partial<ReaderOpts>): ReaderOpts {
+    return Object.assign({}, opts, {
+        decorators: {
+            [API.MidiStatus.NOTE_ON]: noopDecorator<API.MidiStatus.NOTE_ON>,
+            [API.MidiStatus.NOTE_OFF]: noopDecorator<API.MidiStatus.NOTE_OFF>,
+            [API.MidiStatus.CONTROL_CHANGE]: noopDecorator<API.MidiStatus.CONTROL_CHANGE>,
+            [API.MidiStatus.PROGRAM_CHANGE]: noopDecorator<API.MidiStatus.PROGRAM_CHANGE>,
+            [API.MidiStatus.NOTE_AFTER_TOUCH]:
+                noopDecorator<API.MidiStatus.NOTE_AFTER_TOUCH>,
+            [API.MidiStatus.CHANNEL_AFTER_TOUCH]:
+                noopDecorator<API.MidiStatus.CHANNEL_AFTER_TOUCH>,
+            [API.MidiStatus.PITCH_BEND]: noopDecorator<API.MidiStatus.PITCH_BEND>,
+            [API.MidiStatus.TIMING_CLOCK]: noopDecorator<API.MidiStatus.TIMING_CLOCK>,
+            [API.MidiStatus.SONG_POSITION]: noopDecorator<API.MidiStatus.SONG_POSITION>,
+            [API.MidiStatus.SONG_SELECT]: noopDecorator<API.MidiStatus.SONG_SELECT>,
+            [API.MidiStatus.TUNE_REQUEST]: noopDecorator<API.MidiStatus.TUNE_REQUEST>,
+            [API.MidiStatus.TIMING_CLOCK]: noopDecorator<API.MidiStatus.TIMING_CLOCK>,
+            [API.MidiStatus.START]: noopDecorator<API.MidiStatus.START>,
+            [API.MidiStatus.CONTINUE]: noopDecorator<API.MidiStatus.CONTINUE>,
+            [API.MidiStatus.STOP]: noopDecorator<API.MidiStatus.STOP>,
+            [API.MidiStatus.ACTIVE_SENDING]: noopDecorator<API.MidiStatus.ACTIVE_SENDING>,
+            [API.MidiStatus.SYSTEM_RESET]: noopDecorator<API.MidiStatus.SYSTEM_RESET>,
+            [API.MidiStatus.MTC]: noopDecorator<API.MidiStatus.MTC>,
+            [API.MidiStatus.SYSEX]: noopDecorator<API.MidiStatus.SYSEX>,
+        },
+    });
 }
 
 export type MessageReader = (data: Uint8Array, opts?: ReaderOpts) => void;
 
-export function read(data: Uint8Array, opts = defaultOpts()): void {
+export function read(data: Uint8Array, partialOpts = {}): void {
+    const opts = assignDefaultReaderOpts(partialOpts);
     const message = readMidi(data);
-    if (opts.decorators.has(message.status)) {
-        const decorator = opts.decorators.get(message.status);
-        message.meta = decorator();
-    }
-    LIB.messageStream.next(message);
+    LIB.messageStream.next(decorate(message, opts.decorators));
 }
 
-export function reader(opts?: ReaderOpts): MessageReader {
-    return (data: Uint8Array): void => read(data, opts);
+export function reader(partialOpts = {}): MessageReader {
+    return (data: Uint8Array): void => read(data, partialOpts);
 }
 
-function readMidi(data: Uint8Array): API.MidiMessage<API.MidiData> {
+function readMidi(data: Uint8Array): API.MidiMessage<API.MidiStatus> {
     const view = new DataView(data.buffer);
     if (LIB.isSystemMessage(view, 0)) {
         return readSystemMessage(view, 0);

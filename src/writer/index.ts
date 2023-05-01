@@ -32,7 +32,10 @@ function defaultOpts() {
     };
 }
 
-export function write(message: API.MidiMessage<API.MidiData>, opts = defaultOpts()): Uint8Array {
+export function write(
+    message: API.MidiMessage<API.MidiStatus>,
+    opts = defaultOpts(),
+): Uint8Array {
     if (WRITERS.has(message.status)) {
         if (opts.publish) {
             messageStream.next(message);
@@ -44,7 +47,7 @@ export function write(message: API.MidiMessage<API.MidiData>, opts = defaultOpts
 }
 
 export function writer(opts = defaultOpts()) {
-    return (message: API.MidiMessage<API.MidiData>) => write(message, opts);
+    return (message: API.MidiMessage<API.MidiStatus>) => write(message, opts);
 }
 
 /**
