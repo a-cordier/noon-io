@@ -17,4 +17,4 @@ import { Subject } from "rxjs";
 
 import * as API from "../api/index.js";
 
-export const messageStream = new Subject<API.MidiMessage<API.MidiData>>();
+export const messageStream = new Subject<API.MidiMessage<API.MidiStatus>>();

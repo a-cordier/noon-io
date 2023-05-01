@@ -18,26 +18,8 @@ import test, { ExecutionContext } from "ava";
 import * as UTILS from "../internal/utils.js";
 import * as DESER from "./deserializers.js";
 
-test("NumberValueSerializer should read one byte and return 129", (t: ExecutionContext<unknown>) => {
-    const deserializer = new DESER.NumberValueSerializer();
-    const view = UTILS.getDataView([129]);
-    const result = deserializer.deserialize(view, 0);
-    t.is(129, result.data.value);
-    t.is(1, result.offset);
-});
-
-test("StringValueSerializer should read 5 bytes and return MTrk", (t: ExecutionContext<unknown>) => {
-    const deserializer = new DESER.StringValueDeserializer();
-    const bytes = "MTrk".split("").map((char) => char.charCodeAt(0));
-    bytes.unshift(4); // the length of the string to read
-    const view = UTILS.getDataView(bytes);
-    const result = deserializer.deserialize(view, 0);
-    t.is("MTrk", result.data.value);
-    t.is(6, result.offset);
-});
-
 test("NoteDeserializer should return note A4 (69) with a velocity of 80 and read two bytes", (t: ExecutionContext<unknown>) => {
-    const deserializer = new DESER.NoteDeserializer();
+    const deserializer = new DESER.NoteOnDeserializer();
     const bytes = [69, 80];
     const view = UTILS.getDataView(bytes);
     const result = deserializer.deserialize(view, 0);

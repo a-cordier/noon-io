@@ -11,6 +11,6 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
-        "semi": "error",
+        "semi": "error"
       }
   }

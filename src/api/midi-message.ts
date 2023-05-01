@@ -13,14 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { MidiStatus } from "./midi-status";
+import { MidiStatus } from "./midi-status.js";
 
-export interface MidiMessage<T> {
+export type MidiData = {
+    [MidiStatus.NOTE_OFF]: MidiNote;
+    [MidiStatus.NOTE_ON]: MidiNote;
+    [MidiStatus.CONTROL_CHANGE]: MidiControlChange;
+    [MidiStatus.PITCH_BEND]: MidiPitchBend;
+    [MidiStatus.NOTE_AFTER_TOUCH]: MidiNoteAfterTouch;
+    [MidiStatus.CHANNEL_AFTER_TOUCH]: NumberValue;
+    [MidiStatus.PROGRAM_CHANGE]: NumberValue;
+    [MidiStatus.SYSEX]: SysexValue;
+    [MidiStatus.TIMING_CLOCK]: void;
+    [MidiStatus.START]: void;
+    [MidiStatus.CONTINUE]: void;
+    [MidiStatus.STOP]: void;
+    [MidiStatus.ACTIVE_SENDING]: void;
+    [MidiStatus.SYSTEM_RESET]: void;
+    [MidiStatus.MTC]: void;
+    [MidiStatus.SONG_POSITION]: void;
+    [MidiStatus.SONG_SELECT]: void;
+    [MidiStatus.TUNE_REQUEST]: void;
+};
+
+export interface MidiMessage<T extends MidiStatus> {
     /**
      * The MIDI status, identifying the type of the MIDI message
      * @see MidiStatus
      */
-    status: MidiStatus;
+    status: T;
 
     /**
      * The channel on which the message is sent, if the message is not a system message
@@ -37,8 +58,7 @@ export interface MidiMessage<T> {
      * The actual data carried by the message
      * Can be empty for some system messages (e.g. a End Of Track message)
      */
-    data?: T;
-
+    data?: MidiData[T] | never;
     /**
      * The meta data associated with the message
      * This can be used to store additional information about the message
@@ -46,6 +66,7 @@ export interface MidiMessage<T> {
      */
     meta?: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
+
 /**
  * Messages that hold a single value implements this interface
  */
@@ -124,16 +145,3 @@ export interface VariableLengthValue extends NumberValue {
      */
     offset: number;
 }
-
-/**
- * The kind of data one can expect to be hold by a MIDI Message
- */
-export type MidiData =
-    | StringValue
-    | NumberValue
-    | SysexValue
-    | MidiNote
-    | MidiNoteAfterTouch
-    | MidiControlChange
-    | MidiPitchBend
-    | void;

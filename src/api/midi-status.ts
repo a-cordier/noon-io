@@ -52,17 +52,6 @@ export enum MidiStatus {
      */
     TUNE_REQUEST = 0xf6,
     /**
-     *
-     * Used as a flag to indicate the end of a System Exclusive transmission.
-     *
-     * The receiver will continue to wait for data until an EOX message (F7H) or any other non-Real Time status byte is received.
-     *
-     * Although any Status Byte (except Real-Time) will end an exclusive message, an EOX should always be sent at the end of a System Exclusive message.
-     *
-     * @category System Exclusive Message
-     */
-    EOX = 0xf7,
-    /**
      * Exclusive messages are used to send data such as patch parameters, sampler data, or a sequencer memory bulk dump
      *
      * @category System Exclusive Message

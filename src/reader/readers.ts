@@ -17,10 +17,10 @@ import * as API from "../api/index.js";
 import * as LIB from "../internal/index.js";
 import * as IMP from "./deserializers.js";
 
-const READERS = new Map<API.MidiStatus, LIB.MidiMessageReader<API.MidiData>>();
+const READERS = new Map<API.MidiStatus, LIB.MidiMessageReader<API.MidiStatus>>();
 
-function createReader<T>(
-    status: API.MidiStatus,
+function createReader<T extends API.MidiStatus>(
+    status: T,
     deserializer: LIB.MidiDataDeserializer<T>,
 ): LIB.MidiMessageReader<T> {
     return function (view: DataView, offset: number): API.MidiMessage<T> {
@@ -34,17 +34,23 @@ function createReader<T>(
 
 READERS.set(
     API.MidiStatus.NOTE_ON,
-    createReader<API.MidiNote>(API.MidiStatus.NOTE_ON, new IMP.NoteDeserializer()),
+    createReader<API.MidiStatus.NOTE_ON>(
+        API.MidiStatus.NOTE_ON,
+        new IMP.NoteOnDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.NOTE_OFF,
-    createReader<API.MidiNote>(API.MidiStatus.NOTE_OFF, new IMP.NoteDeserializer()),
+    createReader<API.MidiStatus.NOTE_OFF>(
+        API.MidiStatus.NOTE_OFF,
+        new IMP.NoteOffDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.CONTROL_CHANGE,
-    createReader<API.MidiControlChange>(
+    createReader<API.MidiStatus.CONTROL_CHANGE>(
         API.MidiStatus.CONTROL_CHANGE,
         new IMP.ControlChangeDeserializer(),
     ),
@@ -52,7 +58,7 @@ READERS.set(
 
 READERS.set(
     API.MidiStatus.NOTE_AFTER_TOUCH,
-    createReader<API.MidiNoteAfterTouch>(
+    createReader<API.MidiStatus.NOTE_AFTER_TOUCH>(
         API.MidiStatus.NOTE_AFTER_TOUCH,
         new IMP.NoteAfterTouchDeserializer(),
     ),
@@ -60,75 +66,102 @@ READERS.set(
 
 READERS.set(
     API.MidiStatus.CHANNEL_AFTER_TOUCH,
-    createReader<API.NumberValue>(
+    createReader<API.MidiStatus.CHANNEL_AFTER_TOUCH>(
         API.MidiStatus.CHANNEL_AFTER_TOUCH,
-        new IMP.NumberValueSerializer(),
+        new IMP.ChannelAfterTouchDeserializer(),
     ),
 );
 
 READERS.set(
     API.MidiStatus.PITCH_BEND,
-    createReader<API.MidiPitchBend>(API.MidiStatus.PROGRAM_CHANGE, new IMP.PitchBendDeserializer()),
+    createReader<API.MidiStatus.PITCH_BEND>(
+        API.MidiStatus.PITCH_BEND,
+        new IMP.PitchBendDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.PROGRAM_CHANGE,
-    createReader<API.NumberValue>(API.MidiStatus.PROGRAM_CHANGE, new IMP.NumberValueSerializer()),
+    createReader<API.MidiStatus.PROGRAM_CHANGE>(
+        API.MidiStatus.PROGRAM_CHANGE,
+        new IMP.ProgramChangeDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.SYSEX,
-    createReader<API.SysexValue>(API.MidiStatus.SYSEX, new IMP.SysexDeserializer()),
+    createReader<API.MidiStatus.SYSEX>(API.MidiStatus.SYSEX, new IMP.SysexDeserializer()),
 );
 
 READERS.set(
     API.MidiStatus.TIMING_CLOCK,
-    createReader<void>(API.MidiStatus.TIMING_CLOCK, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.TIMING_CLOCK>(
+        API.MidiStatus.TIMING_CLOCK,
+        new IMP.TimingClockDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.START,
-    createReader<void>(API.MidiStatus.START, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.START>(API.MidiStatus.START, new IMP.StartDeserializer()),
 );
 
 READERS.set(
     API.MidiStatus.STOP,
-    createReader<void>(API.MidiStatus.STOP, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.STOP>(API.MidiStatus.STOP, new IMP.StopDeserializer()),
 );
 
 READERS.set(
     API.MidiStatus.CONTINUE,
-    createReader<void>(API.MidiStatus.CONTINUE, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.CONTINUE>(
+        API.MidiStatus.CONTINUE,
+        new IMP.ContinueDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.ACTIVE_SENDING,
-    createReader<void>(API.MidiStatus.ACTIVE_SENDING, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.ACTIVE_SENDING>(
+        API.MidiStatus.ACTIVE_SENDING,
+        new IMP.ActiveSendingDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.SYSTEM_RESET,
-    createReader<void>(API.MidiStatus.SYSTEM_RESET, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.SYSTEM_RESET>(
+        API.MidiStatus.SYSTEM_RESET,
+        new IMP.SystemResetDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.MTC,
-    createReader<void>(API.MidiStatus.MTC, new IMP.OneByteBypassedDeserializer()),
+    createReader<API.MidiStatus.MTC>(API.MidiStatus.MTC, new IMP.MTCDeserializer()),
 );
 
 READERS.set(
     API.MidiStatus.SONG_POSITION,
-    createReader<void>(API.MidiStatus.MTC, new IMP.TwoBytesBypassedDeserializer()),
+    createReader<API.MidiStatus.SONG_POSITION>(
+        API.MidiStatus.SONG_POSITION,
+        new IMP.SongPositionDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.SONG_SELECT,
-    createReader<void>(API.MidiStatus.MTC, new IMP.OneByteBypassedDeserializer()),
+    createReader<API.MidiStatus.SONG_SELECT>(
+        API.MidiStatus.SONG_SELECT,
+        new IMP.SongSelectDeserializer(),
+    ),
 );
 
 READERS.set(
     API.MidiStatus.TUNE_REQUEST,
-    createReader<void>(API.MidiStatus.MTC, new IMP.EmptyMessageDeserializer()),
+    createReader<API.MidiStatus.TUNE_REQUEST>(
+        API.MidiStatus.TUNE_REQUEST,
+        new IMP.TuneRequestDeserializer(),
+    ),
 );
 
 export { READERS };
