@@ -1,5 +1,12 @@
 
 
+# 0.3.0 (2023-05-02)
+
+
+### Features
+
+* add channel filter to the observe function ([5f2d1ec](https://github.com/a-cordier/noon-io/commit/5f2d1ec761d599b4c3868cd247e6c1b5b3d554bc))
+
 # 0.2.0 (2023-05-02)
 
 
