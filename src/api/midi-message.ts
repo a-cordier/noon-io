@@ -15,27 +15,120 @@
  */
 import { MidiStatus } from "./midi-status.js";
 
+/**
+ * Associates each MIDI status with the definition of its data bytes.
+ *
+ * This type is essentially used internally to infer the data carried by a MIDI message
+ * from its status.
+ */
 export type MidiData = {
+    /**
+     * Data definition for a Note Off message
+     * @see MidiStatus.NOTE_OFF
+     * @see MidiNote
+     */
     [MidiStatus.NOTE_OFF]: MidiNote;
+    /**
+     * Data definition for a Note On message
+     * @see MidiStatus.NOTE_ON
+     * @see MidiNote
+     */
     [MidiStatus.NOTE_ON]: MidiNote;
+    /**
+     * Data definition for a Control Change message
+     * @see MidiStatus.CONTROL_CHANGE
+     * @see MidiControlChange
+     */
     [MidiStatus.CONTROL_CHANGE]: MidiControlChange;
+    /**
+     * Data definition for a Pitch Bend message
+     * @see MidiStatus.PITCH_BEND
+     * @see MidiPitchBend
+     */
     [MidiStatus.PITCH_BEND]: MidiPitchBend;
+    /**
+     * Data definition for a Note Aftertouch message
+     * @see MidiStatus.NOTE_AFTER_TOUCH
+     * @see MidiPitchBend
+     */
     [MidiStatus.NOTE_AFTER_TOUCH]: MidiNoteAfterTouch;
+    /**
+     * Data definition for a Channel Aftertouch message
+     * @see MidiStatus.CHANNEL_AFTER_TOUCH
+     * @see NumberValue
+     */
     [MidiStatus.CHANNEL_AFTER_TOUCH]: NumberValue;
+    /**
+     * Data definition for a Program Change message
+     * @see MidiStatus.PROGRAM_CHANGE
+     * @see NumberValue
+     */
     [MidiStatus.PROGRAM_CHANGE]: NumberValue;
+    /**
+     * Data definition for a System Exclusive message
+     * @see MidiStatus.SYSEX
+     * @see SysexValue
+     */
     [MidiStatus.SYSEX]: SysexValue;
+    /**
+     * Data definition for a Timing Clock message
+     * @see MidiStatus.TIMING_CLOCK
+     */
     [MidiStatus.TIMING_CLOCK]: void;
+    /**
+     * Data definition for a Start message
+     * @see MidiStatus.START
+     */
     [MidiStatus.START]: void;
+    /**
+     * Data definition for a Continue message
+     * @see MidiStatus.CONTINUE
+     */
     [MidiStatus.CONTINUE]: void;
+    /**
+     * Data definition for a Stop message
+     * @see MidiStatus.STOP
+     */
     [MidiStatus.STOP]: void;
+    /**
+     * Data definition for an Active Sending message
+     * @see MidiStatus.ACTIVE_SENDING
+     */
     [MidiStatus.ACTIVE_SENDING]: void;
+    /**
+     * Data definition for a System Reset message
+     * @see MidiStatus.SYSTEM_RESET
+     */
     [MidiStatus.SYSTEM_RESET]: void;
+    /**
+     * Data definition for a Midi Time Code message
+     * @see MidiStatus.MTC
+     */
     [MidiStatus.MTC]: void;
+    /**
+     * Data definition for a Song Position message
+     * @see MidiStatus.SONG_POSITION
+     */
     [MidiStatus.SONG_POSITION]: void;
+    /**
+     * Data definition for a Song Select message
+     * @see MidiStatus.SONG_SELECT
+     */
     [MidiStatus.SONG_SELECT]: void;
+    /**
+     * Data definition for a Tune Request message
+     * @see MidiStatus.TUNE_REQUEST
+     */
     [MidiStatus.TUNE_REQUEST]: void;
 };
 
+/**
+ * The MidiMessage interface is the base interface for all MIDI messages.
+ * It defines the common properties of all MIDI messages, the data associated
+ * with the message status.
+ *
+ * The meta property allow to decorate the message with application specific data.
+ */
 export interface MidiMessage<T extends MidiStatus> {
     /**
      * The MIDI status, identifying the type of the MIDI message
