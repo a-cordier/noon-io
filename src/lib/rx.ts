@@ -21,6 +21,14 @@ export const Stream = LIB.messageStream;
 
 export function observe(
     status: API.MidiStatus,
+    channel?: API.MidiChannel,
 ): Observable<API.MidiMessage<API.MidiStatus>> {
-    return LIB.messageStream.pipe(filter((message) => message.status === status));
+    return LIB.messageStream.pipe(
+        filter((message) => {
+            if (channel !== undefined) {
+                return message.status === status && message.channel === channel;
+            }
+            return message.status === status;
+        }),
+    );
 }
