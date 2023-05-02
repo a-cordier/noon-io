@@ -13,33 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { MidiStatus } from "./midi-status.js";
+import { Status } from "./status.js";
 
 /**
  * The 16 MIDI channels numbered from 0 to 15.
  */
-export type MidiChannel =
-    | 0
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12
-    | 13
-    | 14
-    | 15;
+export type Channel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 
 /**
  * The MIDI channel 16 is reserved for Omni channel mode.
  */
-export type MidiOmniChannel = 16;
+export type OmniChannel = 16;
 
 /**
  * Associates each MIDI status with the definition of its data bytes.
@@ -47,105 +31,105 @@ export type MidiOmniChannel = 16;
  * This type is essentially used internally to infer the data carried by a MIDI message
  * from its status.
  */
-export type MidiData = {
+export type Data = {
     /**
      * Data definition for a Note Off message
-     * @see MidiStatus.NOTE_OFF
-     * @see MidiNote
+     * @see Status.NOTE_OFF
+     * @see Note
      */
-    [MidiStatus.NOTE_OFF]: MidiNote;
+    [Status.NOTE_OFF]: Note;
     /**
      * Data definition for a Note On message
-     * @see MidiStatus.NOTE_ON
-     * @see MidiNote
+     * @see Status.NOTE_ON
+     * @see Note
      */
-    [MidiStatus.NOTE_ON]: MidiNote;
+    [Status.NOTE_ON]: Note;
     /**
      * Data definition for a Control Change message
-     * @see MidiStatus.CONTROL_CHANGE
-     * @see MidiControlChange
+     * @see Status.CONTROL_CHANGE
+     * @see ControlChange
      */
-    [MidiStatus.CONTROL_CHANGE]: MidiControlChange;
+    [Status.CONTROL_CHANGE]: ControlChange;
     /**
      * Data definition for a Pitch Bend message
-     * @see MidiStatus.PITCH_BEND
-     * @see MidiPitchBend
+     * @see Status.PITCH_BEND
+     * @see PitchBend
      */
-    [MidiStatus.PITCH_BEND]: MidiPitchBend;
+    [Status.PITCH_BEND]: PitchBend;
     /**
      * Data definition for a Note Aftertouch message
-     * @see MidiStatus.NOTE_AFTER_TOUCH
-     * @see MidiPitchBend
+     * @see Status.NOTE_AFTER_TOUCH
+     * @see PitchBend
      */
-    [MidiStatus.NOTE_AFTER_TOUCH]: MidiNoteAfterTouch;
+    [Status.NOTE_AFTER_TOUCH]: NoteAfterTouch;
     /**
      * Data definition for a Channel Aftertouch message
-     * @see MidiStatus.CHANNEL_AFTER_TOUCH
+     * @see Status.CHANNEL_AFTER_TOUCH
      * @see NumberValue
      */
-    [MidiStatus.CHANNEL_AFTER_TOUCH]: NumberValue;
+    [Status.CHANNEL_AFTER_TOUCH]: NumberValue;
     /**
      * Data definition for a Program Change message
-     * @see MidiStatus.PROGRAM_CHANGE
+     * @see Status.PROGRAM_CHANGE
      * @see NumberValue
      */
-    [MidiStatus.PROGRAM_CHANGE]: NumberValue;
+    [Status.PROGRAM_CHANGE]: NumberValue;
     /**
      * Data definition for a System Exclusive message
-     * @see MidiStatus.SYSEX
+     * @see Status.SYSEX
      * @see SysexValue
      */
-    [MidiStatus.SYSEX]: SysexValue;
+    [Status.SYSEX]: SysexValue;
     /**
      * Data definition for a Timing Clock message
-     * @see MidiStatus.TIMING_CLOCK
+     * @see Status.TIMING_CLOCK
      */
-    [MidiStatus.TIMING_CLOCK]: void;
+    [Status.TIMING_CLOCK]: void;
     /**
      * Data definition for a Start message
-     * @see MidiStatus.START
+     * @see Status.START
      */
-    [MidiStatus.START]: void;
+    [Status.START]: void;
     /**
      * Data definition for a Continue message
-     * @see MidiStatus.CONTINUE
+     * @see Status.CONTINUE
      */
-    [MidiStatus.CONTINUE]: void;
+    [Status.CONTINUE]: void;
     /**
      * Data definition for a Stop message
-     * @see MidiStatus.STOP
+     * @see Status.STOP
      */
-    [MidiStatus.STOP]: void;
+    [Status.STOP]: void;
     /**
      * Data definition for an Active Sending message
-     * @see MidiStatus.ACTIVE_SENDING
+     * @see Status.ACTIVE_SENDING
      */
-    [MidiStatus.ACTIVE_SENDING]: void;
+    [Status.ACTIVE_SENDING]: void;
     /**
      * Data definition for a System Reset message
-     * @see MidiStatus.SYSTEM_RESET
+     * @see Status.SYSTEM_RESET
      */
-    [MidiStatus.SYSTEM_RESET]: void;
+    [Status.SYSTEM_RESET]: void;
     /**
      * Data definition for a Midi Time Code message
-     * @see MidiStatus.MTC
+     * @see Status.MTC
      */
-    [MidiStatus.MTC]: void;
+    [Status.MTC]: void;
     /**
      * Data definition for a Song Position message
-     * @see MidiStatus.SONG_POSITION
+     * @see Status.SONG_POSITION
      */
-    [MidiStatus.SONG_POSITION]: void;
+    [Status.SONG_POSITION]: void;
     /**
      * Data definition for a Song Select message
-     * @see MidiStatus.SONG_SELECT
+     * @see Status.SONG_SELECT
      */
-    [MidiStatus.SONG_SELECT]: void;
+    [Status.SONG_SELECT]: void;
     /**
      * Data definition for a Tune Request message
-     * @see MidiStatus.TUNE_REQUEST
+     * @see Status.TUNE_REQUEST
      */
-    [MidiStatus.TUNE_REQUEST]: void;
+    [Status.TUNE_REQUEST]: void;
 };
 
 /**
@@ -155,10 +139,10 @@ export type MidiData = {
  *
  * The meta property allow to decorate the message with application specific data.
  */
-export interface MidiMessage<T extends MidiStatus> {
+export interface Message<T extends Status> {
     /**
      * The MIDI status, identifying the type of the MIDI message
-     * @see MidiStatus
+     * @see Status
      */
     status: T;
 
@@ -177,7 +161,7 @@ export interface MidiMessage<T extends MidiStatus> {
      * The actual data carried by the message
      * Can be empty for some system messages (e.g. a End Of Track message)
      */
-    data?: MidiData[T] | never;
+    data?: Data[T] | never;
     /**
      * The meta data associated with the message
      * This can be used to store additional information about the message
@@ -211,7 +195,7 @@ export type SysexValue = SingleValue<Uint8Array>;
 /**
  * For MIDI notes, value holds the MIDI value of the note
  */
-export interface MidiNote extends NumberValue {
+export interface Note extends NumberValue {
     /**
      * the velocity to apply to the note
      */
@@ -229,21 +213,21 @@ export interface MidiNote extends NumberValue {
 /**
  * For MIDI note after touch, value holds the amount of after touch to be processed
  */
-export interface MidiNoteAfterTouch extends NumberValue {
+export interface NoteAfterTouch extends NumberValue {
     note: number;
 }
 
 /**
  * For MIDI control changes, value holds the value to apply to the control
  */
-export interface MidiControlChange extends NumberValue {
+export interface ControlChange extends NumberValue {
     /**
      * control address
      */
     control: number;
 }
 
-export interface MidiPitchBend {
+export interface PitchBend {
     /**
      * least significant byte of the pitch bend message
      */
@@ -264,23 +248,3 @@ export interface VariableLengthValue extends NumberValue {
      */
     offset: number;
 }
-
-export type ControlChangeMessage = MidiMessage<MidiStatus.CONTROL_CHANGE>;
-export type NoteMessage = MidiMessage<MidiStatus.NOTE_ON | MidiStatus.NOTE_OFF>;
-export type NoteOnMessage = MidiMessage<MidiStatus.NOTE_ON>;
-export type NoteOffMessage = MidiMessage<MidiStatus.NOTE_OFF>;
-export type NoteAfterTouchMessage = MidiMessage<MidiStatus.NOTE_AFTER_TOUCH>;
-export type ChannelAfterTouchMessage = MidiMessage<MidiStatus.CHANNEL_AFTER_TOUCH>;
-export type ProgramChangeMessage = MidiMessage<MidiStatus.PROGRAM_CHANGE>;
-export type PitchBendMessage = MidiMessage<MidiStatus.PITCH_BEND>;
-export type SysexMessage = MidiMessage<MidiStatus.SYSEX>;
-export type TimingClockMessage = MidiMessage<MidiStatus.TIMING_CLOCK>;
-export type StartMessage = MidiMessage<MidiStatus.START>;
-export type ContinueMessage = MidiMessage<MidiStatus.CONTINUE>;
-export type StopMessage = MidiMessage<MidiStatus.STOP>;
-export type ActiveSendingMessage = MidiMessage<MidiStatus.ACTIVE_SENDING>;
-export type SystemResetMessage = MidiMessage<MidiStatus.SYSTEM_RESET>;
-export type MtcMessage = MidiMessage<MidiStatus.MTC>;
-export type SongPositionMessage = MidiMessage<MidiStatus.SONG_POSITION>;
-export type SongSelectMessage = MidiMessage<MidiStatus.SONG_SELECT>;
-export type TuneRequestMessage = MidiMessage<MidiStatus.TUNE_REQUEST>;

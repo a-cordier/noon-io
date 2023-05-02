@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from "./midi-message.js";
-export * from "./midi-status.js";
+export * from "./message.js";
+export * from "./status.js";

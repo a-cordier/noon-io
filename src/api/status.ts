@@ -19,7 +19,7 @@
  * The following enumeration constants and explanations come from the MIDI 1.0 Detailed Specification
  * that can be found on the [MIDI Association](https://midi.org/specifications/midi1-specifications) web site.
  */
-export enum MidiStatus {
+export enum Status {
     /**
      *
      * The MIDI Time Code Quarter Frame message communicates the Frame, Seconds, Minutes and Hours Count in an 8-message sequence.
@@ -150,15 +150,15 @@ export enum MidiStatus {
  * A subset of the MIDI Status enumeration that expresses real time system messages.
  */
 export type RealTimeStatus =
-    | MidiStatus.TIMING_CLOCK
-    | MidiStatus.START
-    | MidiStatus.STOP
-    | MidiStatus.CONTINUE
-    | MidiStatus.SYSTEM_RESET
-    | MidiStatus.ACTIVE_SENDING;
+    | Status.TIMING_CLOCK
+    | Status.START
+    | Status.STOP
+    | Status.CONTINUE
+    | Status.SYSTEM_RESET
+    | Status.ACTIVE_SENDING;
 
 export type SystemCommonStatus =
-    | MidiStatus.MTC
-    | MidiStatus.SONG_POSITION
-    | MidiStatus.SONG_SELECT
-    | MidiStatus.TUNE_REQUEST;
+    | Status.MTC
+    | Status.SONG_POSITION
+    | Status.SONG_SELECT
+    | Status.TUNE_REQUEST;

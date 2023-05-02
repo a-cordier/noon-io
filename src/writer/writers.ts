@@ -17,14 +17,14 @@ import * as API from "../api/index.js";
 import * as LIB from "../internal/index.js";
 import * as IMP from "./serializers.js";
 
-const WRITERS = new Map<API.MidiStatus, LIB.MidiMessageWriter<API.MidiStatus>>();
+const WRITERS = new Map<API.Status, LIB.MidiMessageWriter<API.Status>>();
 
-function createWriter<T extends API.MidiStatus>(
+function createWriter<T extends API.Status>(
     statusEncoder: LIB.StatusEncoder,
     serializer: LIB.MidiDataSerializer<T>,
     size: number,
 ): LIB.MidiMessageWriter<T> {
-    return (message: API.MidiMessage<T>): Uint8Array => {
+    return (message: API.Message<T>): Uint8Array => {
         const data = new Uint8Array(size);
         const view = new DataView(data.buffer);
         const status = statusEncoder(message.status, message.channel);
@@ -35,8 +35,8 @@ function createWriter<T extends API.MidiStatus>(
 }
 
 WRITERS.set(
-    API.MidiStatus.NOTE_ON,
-    createWriter<API.MidiStatus.NOTE_ON>(
+    API.Status.NOTE_ON,
+    createWriter<API.Status.NOTE_ON>(
         LIB.channelStatusEncoder,
         new IMP.NoteOnSerializer(),
         3,
@@ -44,8 +44,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.NOTE_OFF,
-    createWriter<API.MidiStatus.NOTE_OFF>(
+    API.Status.NOTE_OFF,
+    createWriter<API.Status.NOTE_OFF>(
         LIB.channelStatusEncoder,
         new IMP.NoteOffSerializer(),
         3,
@@ -53,8 +53,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.CONTROL_CHANGE,
-    createWriter<API.MidiStatus.CONTROL_CHANGE>(
+    API.Status.CONTROL_CHANGE,
+    createWriter<API.Status.CONTROL_CHANGE>(
         LIB.channelStatusEncoder,
         new IMP.ControlChangeSerializer(),
         3,
@@ -62,8 +62,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.NOTE_AFTER_TOUCH,
-    createWriter<API.MidiStatus.NOTE_AFTER_TOUCH>(
+    API.Status.NOTE_AFTER_TOUCH,
+    createWriter<API.Status.NOTE_AFTER_TOUCH>(
         LIB.channelStatusEncoder,
         new IMP.NoteAfterTouchSerializer(),
         3,
@@ -71,8 +71,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.CHANNEL_AFTER_TOUCH,
-    createWriter<API.MidiStatus.CHANNEL_AFTER_TOUCH>(
+    API.Status.CHANNEL_AFTER_TOUCH,
+    createWriter<API.Status.CHANNEL_AFTER_TOUCH>(
         LIB.channelStatusEncoder,
         new IMP.ProgramChangeSerializer(),
         2,
@@ -80,8 +80,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.PROGRAM_CHANGE,
-    createWriter<API.MidiStatus.PROGRAM_CHANGE>(
+    API.Status.PROGRAM_CHANGE,
+    createWriter<API.Status.PROGRAM_CHANGE>(
         LIB.channelStatusEncoder,
         new IMP.ProgramChangeSerializer(),
         2,
@@ -89,8 +89,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.PITCH_BEND,
-    createWriter<API.MidiStatus.PITCH_BEND>(
+    API.Status.PITCH_BEND,
+    createWriter<API.Status.PITCH_BEND>(
         LIB.channelStatusEncoder,
         new IMP.PitchBendSerializer(),
         3,
@@ -98,8 +98,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.TIMING_CLOCK,
-    createWriter<API.MidiStatus.TIMING_CLOCK>(
+    API.Status.TIMING_CLOCK,
+    createWriter<API.Status.TIMING_CLOCK>(
         LIB.systemStatusEncoder,
         new IMP.TimingClockSerializer(),
         1,
@@ -107,17 +107,13 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.START,
-    createWriter<API.MidiStatus.START>(
-        LIB.systemStatusEncoder,
-        new IMP.StartSerializer(),
-        1,
-    ),
+    API.Status.START,
+    createWriter<API.Status.START>(LIB.systemStatusEncoder, new IMP.StartSerializer(), 1),
 );
 
 WRITERS.set(
-    API.MidiStatus.CONTINUE,
-    createWriter<API.MidiStatus.CONTINUE>(
+    API.Status.CONTINUE,
+    createWriter<API.Status.CONTINUE>(
         LIB.systemStatusEncoder,
         new IMP.ContinueSerializer(),
         1,
@@ -125,17 +121,13 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.STOP,
-    createWriter<API.MidiStatus.STOP>(
-        LIB.systemStatusEncoder,
-        new IMP.StopSerializer(),
-        1,
-    ),
+    API.Status.STOP,
+    createWriter<API.Status.STOP>(LIB.systemStatusEncoder, new IMP.StopSerializer(), 1),
 );
 
 WRITERS.set(
-    API.MidiStatus.ACTIVE_SENDING,
-    createWriter<API.MidiStatus.ACTIVE_SENDING>(
+    API.Status.ACTIVE_SENDING,
+    createWriter<API.Status.ACTIVE_SENDING>(
         LIB.systemStatusEncoder,
         new IMP.ActiveSendingSerializer(),
         1,
@@ -143,8 +135,8 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.MidiStatus.SYSTEM_RESET,
-    createWriter<API.MidiStatus.SYSTEM_RESET>(
+    API.Status.SYSTEM_RESET,
+    createWriter<API.Status.SYSTEM_RESET>(
         LIB.systemStatusEncoder,
         new IMP.SystemResetSerializer(),
         1,

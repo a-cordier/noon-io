@@ -13,4 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from "./rx.js";
+import { Subject, Observable, filter } from "rxjs";
+import * as API from "../api/index.js";
+
+export const Stream = new Subject<API.Message<API.Status>>();
+
+export function observe(
+    status: API.Status,
+    channel?: API.Channel,
+): Observable<API.Message<API.Status>> {
+    return Stream.pipe(
+        filter((message) => {
+            if (channel !== undefined) {
+                return message.status === status && message.channel === channel;
+            }
+            return message.status === status;
+        }),
+    );
+}

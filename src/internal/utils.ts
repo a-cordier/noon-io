@@ -55,17 +55,17 @@ export function readBytes(view: DataView, offset: number, length: number): numbe
 
 export function isSystemMessage(view: DataView, offset: number) {
     switch (view.getUint8(offset)) {
-        case API.MidiStatus.MTC:
-        case API.MidiStatus.SONG_POSITION:
-        case API.MidiStatus.SONG_SELECT:
-        case API.MidiStatus.TUNE_REQUEST:
-        case API.MidiStatus.TIMING_CLOCK:
-        case API.MidiStatus.START:
-        case API.MidiStatus.STOP:
-        case API.MidiStatus.CONTINUE:
-        case API.MidiStatus.SYSTEM_RESET:
-        case API.MidiStatus.ACTIVE_SENDING:
-        case API.MidiStatus.SYSEX:
+        case API.Status.MTC:
+        case API.Status.SONG_POSITION:
+        case API.Status.SONG_SELECT:
+        case API.Status.TUNE_REQUEST:
+        case API.Status.TIMING_CLOCK:
+        case API.Status.START:
+        case API.Status.STOP:
+        case API.Status.CONTINUE:
+        case API.Status.SYSTEM_RESET:
+        case API.Status.ACTIVE_SENDING:
+        case API.Status.SYSEX:
             return true;
         default:
             return false;
@@ -77,11 +77,11 @@ export function isRunningStatusChange(view: DataView, offset: number) {
     return 0 !== unmasked;
 }
 
-export function channelStatusEncoder(status: API.MidiStatus, channel: number): number {
+export function channelStatusEncoder(status: API.Status, channel: number): number {
     return (status << 4) | (channel - 1);
 }
 
-export function systemStatusEncoder(status: API.MidiStatus): number {
+export function systemStatusEncoder(status: API.Status): number {
     return status;
 }
 
