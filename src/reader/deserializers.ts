@@ -16,13 +16,11 @@
 import * as API from "../api/index.js";
 import * as LIB from "../internal/index.js";
 
-export class NoteOnDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.NOTE_ON>
-{
+export class NoteOnDeserializer implements LIB.MidiDataDeserializer<API.Status.NOTE_ON> {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.NOTE_ON> {
+    ): LIB.DeserializationResult<API.Status.NOTE_ON> {
         return {
             data: deserializeNote(view, offset),
             offset: offset + 2,
@@ -31,12 +29,12 @@ export class NoteOnDeserializer
 }
 
 export class NoteOffDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.NOTE_OFF>
+    implements LIB.MidiDataDeserializer<API.Status.NOTE_OFF>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.NOTE_OFF> {
+    ): LIB.DeserializationResult<API.Status.NOTE_OFF> {
         return {
             data: deserializeNote(view, offset),
             offset: offset + 2,
@@ -45,12 +43,12 @@ export class NoteOffDeserializer
 }
 
 export class ControlChangeDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.CONTROL_CHANGE>
+    implements LIB.MidiDataDeserializer<API.Status.CONTROL_CHANGE>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.CONTROL_CHANGE> {
+    ): LIB.DeserializationResult<API.Status.CONTROL_CHANGE> {
         return {
             data: {
                 control: view.getUint8(offset),
@@ -62,12 +60,12 @@ export class ControlChangeDeserializer
 }
 
 export class ChannelAfterTouchDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.CHANNEL_AFTER_TOUCH>
+    implements LIB.MidiDataDeserializer<API.Status.CHANNEL_AFTER_TOUCH>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.CHANNEL_AFTER_TOUCH> {
+    ): LIB.DeserializationResult<API.Status.CHANNEL_AFTER_TOUCH> {
         return {
             data: {
                 value: view.getUint8(offset),
@@ -78,12 +76,12 @@ export class ChannelAfterTouchDeserializer
 }
 
 export class ProgramChangeDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.PROGRAM_CHANGE>
+    implements LIB.MidiDataDeserializer<API.Status.PROGRAM_CHANGE>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.PROGRAM_CHANGE> {
+    ): LIB.DeserializationResult<API.Status.PROGRAM_CHANGE> {
         return {
             data: {
                 value: view.getUint8(offset),
@@ -94,12 +92,12 @@ export class ProgramChangeDeserializer
 }
 
 export class NoteAfterTouchDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.NOTE_AFTER_TOUCH>
+    implements LIB.MidiDataDeserializer<API.Status.NOTE_AFTER_TOUCH>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.NOTE_AFTER_TOUCH> {
+    ): LIB.DeserializationResult<API.Status.NOTE_AFTER_TOUCH> {
         return {
             data: {
                 note: view.getUint8(offset),
@@ -111,12 +109,12 @@ export class NoteAfterTouchDeserializer
 }
 
 export class PitchBendDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.PITCH_BEND>
+    implements LIB.MidiDataDeserializer<API.Status.PITCH_BEND>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.PITCH_BEND> {
+    ): LIB.DeserializationResult<API.Status.PITCH_BEND> {
         return {
             data: {
                 lsb: view.getUint8(offset),
@@ -127,11 +125,11 @@ export class PitchBendDeserializer
     }
 }
 
-export class SysexDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus.SYSEX> {
+export class SysexDeserializer implements LIB.MidiDataDeserializer<API.Status.SYSEX> {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.SYSEX> {
+    ): LIB.DeserializationResult<API.Status.SYSEX> {
         let endOffset = offset + 1;
 
         while (endOffset < view.byteLength) {
@@ -154,34 +152,31 @@ export class SysexDeserializer implements LIB.MidiDataDeserializer<API.MidiStatu
 }
 
 export class TimingClockDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.TIMING_CLOCK>
+    implements LIB.MidiDataDeserializer<API.Status.TIMING_CLOCK>
 {
     deserialize(
         _: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.TIMING_CLOCK> {
+    ): LIB.DeserializationResult<API.Status.TIMING_CLOCK> {
         return {
             offset: offset + 1,
         };
     }
 }
 
-export class StartDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus.START> {
+export class StartDeserializer implements LIB.MidiDataDeserializer<API.Status.START> {
     deserialize(
         _: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.START> {
+    ): LIB.DeserializationResult<API.Status.START> {
         return {
             offset: offset + 1,
         };
     }
 }
 
-export class StopDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus.STOP> {
-    deserialize(
-        _: DataView,
-        offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.STOP> {
+export class StopDeserializer implements LIB.MidiDataDeserializer<API.Status.STOP> {
+    deserialize(_: DataView, offset: number): LIB.DeserializationResult<API.Status.STOP> {
         return {
             offset: offset + 1,
         };
@@ -189,12 +184,12 @@ export class StopDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus
 }
 
 export class ContinueDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.CONTINUE>
+    implements LIB.MidiDataDeserializer<API.Status.CONTINUE>
 {
     deserialize(
         _: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.CONTINUE> {
+    ): LIB.DeserializationResult<API.Status.CONTINUE> {
         return {
             offset: offset + 1,
         };
@@ -202,12 +197,12 @@ export class ContinueDeserializer
 }
 
 export class ActiveSendingDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.ACTIVE_SENDING>
+    implements LIB.MidiDataDeserializer<API.Status.ACTIVE_SENDING>
 {
     deserialize(
         _: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.ACTIVE_SENDING> {
+    ): LIB.DeserializationResult<API.Status.ACTIVE_SENDING> {
         return {
             offset: offset + 1,
         };
@@ -215,23 +210,23 @@ export class ActiveSendingDeserializer
 }
 
 export class SystemResetDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.SYSTEM_RESET>
+    implements LIB.MidiDataDeserializer<API.Status.SYSTEM_RESET>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.SYSTEM_RESET> {
+    ): LIB.DeserializationResult<API.Status.SYSTEM_RESET> {
         return {
             offset: offset + 1,
         };
     }
 }
 
-export class MTCDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus.MTC> {
+export class MTCDeserializer implements LIB.MidiDataDeserializer<API.Status.MTC> {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.MTC> {
+    ): LIB.DeserializationResult<API.Status.MTC> {
         return {
             offset: offset + 1,
         };
@@ -239,12 +234,12 @@ export class MTCDeserializer implements LIB.MidiDataDeserializer<API.MidiStatus.
 }
 
 export class SongSelectDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.SONG_SELECT>
+    implements LIB.MidiDataDeserializer<API.Status.SONG_SELECT>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.SONG_SELECT> {
+    ): LIB.DeserializationResult<API.Status.SONG_SELECT> {
         return {
             offset: offset + 1,
         };
@@ -252,12 +247,12 @@ export class SongSelectDeserializer
 }
 
 export class SongPositionDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.SONG_POSITION>
+    implements LIB.MidiDataDeserializer<API.Status.SONG_POSITION>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.SONG_POSITION> {
+    ): LIB.DeserializationResult<API.Status.SONG_POSITION> {
         return {
             offset: offset + 2,
         };
@@ -265,19 +260,19 @@ export class SongPositionDeserializer
 }
 
 export class TuneRequestDeserializer
-    implements LIB.MidiDataDeserializer<API.MidiStatus.TUNE_REQUEST>
+    implements LIB.MidiDataDeserializer<API.Status.TUNE_REQUEST>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.MidiStatus.TUNE_REQUEST> {
+    ): LIB.DeserializationResult<API.Status.TUNE_REQUEST> {
         return {
             offset: offset + 1,
         };
     }
 }
 
-function deserializeNote(view: DataView, offset: number): API.MidiNote {
+function deserializeNote(view: DataView, offset: number): API.Note {
     const value = view.getUint8(offset);
     const velocity = view.getUint8(offset + 1);
     const note = LIB.MidiNotes[value];

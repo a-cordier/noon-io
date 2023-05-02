@@ -16,35 +16,33 @@
 import * as API from "../api/index.js";
 import * as LIB from "../internal/index.js";
 
-export class NoteOnSerializer implements LIB.MidiDataSerializer<API.MidiStatus.NOTE_ON> {
-    serialize(view: DataView, offset: number, note: API.MidiNote): void {
+export class NoteOnSerializer implements LIB.MidiDataSerializer<API.Status.NOTE_ON> {
+    serialize(view: DataView, offset: number, note: API.Note): void {
         view.setUint8(offset, note.value);
         view.setUint8(offset + 1, note.velocity);
     }
 }
 
-export class NoteOffSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.NOTE_OFF>
-{
-    serialize(view: DataView, offset: number, note: API.MidiNote): void {
+export class NoteOffSerializer implements LIB.MidiDataSerializer<API.Status.NOTE_OFF> {
+    serialize(view: DataView, offset: number, note: API.Note): void {
         view.setUint8(offset, note.value);
         view.setUint8(offset + 1, note.velocity);
     }
 }
 
 export class ControlChangeSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.CONTROL_CHANGE>
+    implements LIB.MidiDataSerializer<API.Status.CONTROL_CHANGE>
 {
-    serialize(view: DataView, offset: number, controlChange: API.MidiControlChange) {
+    serialize(view: DataView, offset: number, controlChange: API.ControlChange) {
         view.setUint8(offset, controlChange.control);
         view.setUint8(offset + 1, controlChange.value);
     }
 }
 
 export class PitchBendSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.PITCH_BEND>
+    implements LIB.MidiDataSerializer<API.Status.PITCH_BEND>
 {
-    serialize(view: DataView, offset: number, pitchBend: API.MidiPitchBend) {
+    serialize(view: DataView, offset: number, pitchBend: API.PitchBend) {
         view.setUint8(offset, pitchBend.lsb);
         view.setUint8(offset + 1, pitchBend.msb);
         return offset + 2;
@@ -52,16 +50,16 @@ export class PitchBendSerializer
 }
 
 export class NoteAfterTouchSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.NOTE_AFTER_TOUCH>
+    implements LIB.MidiDataSerializer<API.Status.NOTE_AFTER_TOUCH>
 {
-    serialize(view: DataView, offset: number, afterTouch: API.MidiNoteAfterTouch) {
+    serialize(view: DataView, offset: number, afterTouch: API.NoteAfterTouch) {
         view.setUint8(offset, afterTouch.note);
         view.setUint8(offset + 1, afterTouch.value);
     }
 }
 
 export class ProgramChangeSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.PROGRAM_CHANGE>
+    implements LIB.MidiDataSerializer<API.Status.PROGRAM_CHANGE>
 {
     serialize(view: DataView, offset: number, programChange: API.NumberValue) {
         view.setUint8(offset, programChange.value);
@@ -69,38 +67,36 @@ export class ProgramChangeSerializer
 }
 
 export class TimingClockSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.TIMING_CLOCK>
+    implements LIB.MidiDataSerializer<API.Status.TIMING_CLOCK>
 {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}
 }
 
-export class StartSerializer implements LIB.MidiDataSerializer<API.MidiStatus.START> {
+export class StartSerializer implements LIB.MidiDataSerializer<API.Status.START> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}
 }
 
-export class StopSerializer implements LIB.MidiDataSerializer<API.MidiStatus.STOP> {
+export class StopSerializer implements LIB.MidiDataSerializer<API.Status.STOP> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}
 }
 
-export class ContinueSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.CONTINUE>
-{
+export class ContinueSerializer implements LIB.MidiDataSerializer<API.Status.CONTINUE> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}
 }
 
 export class ActiveSendingSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.ACTIVE_SENDING>
+    implements LIB.MidiDataSerializer<API.Status.ACTIVE_SENDING>
 {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}
 }
 
 export class SystemResetSerializer
-    implements LIB.MidiDataSerializer<API.MidiStatus.SYSTEM_RESET>
+    implements LIB.MidiDataSerializer<API.Status.SYSTEM_RESET>
 {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}

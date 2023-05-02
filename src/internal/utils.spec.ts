@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import test, { ExecutionContext } from "ava";
-import { MidiStatus } from "../index.js";
+import { Status } from "../index.js";
 
 import * as UTILS from "./utils.js";
 
@@ -78,5 +78,5 @@ test("readVariableLengthQuantity should return 8192 for 0xC0|0x00", (t: Executio
 });
 
 test("channelStatusEncoder should set a Note On MIDI status directed to channel 1", (t: ExecutionContext<unknown>) => {
-    t.is(0b10010000, UTILS.channelStatusEncoder(MidiStatus.NOTE_ON, 1));
+    t.is(0b10010000, UTILS.channelStatusEncoder(Status.NOTE_ON, 1));
 });

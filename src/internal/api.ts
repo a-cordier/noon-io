@@ -18,15 +18,15 @@ import * as API from "../api/index.js";
 /**
  * @internal
  */
-export interface DeserializationResult<T extends API.MidiStatus> {
-    data?: API.MidiData[T] | never;
+export interface DeserializationResult<T extends API.Status> {
+    data?: API.Data[T] | never;
     offset: number;
 }
 
 /**
  * @internal
  */
-export interface MidiDataDeserializer<T extends API.MidiStatus> {
+export interface MidiDataDeserializer<T extends API.Status> {
     /**
      * Read bytes and build an object of type T
      * @param view A DataView of an Uint8Array buffer holding MIDI encoding data
@@ -38,37 +38,37 @@ export interface MidiDataDeserializer<T extends API.MidiStatus> {
 /**
  * @internal
  */
-export interface MidiMessageReader<T extends API.MidiStatus> {
+export interface MidiMessageReader<T extends API.Status> {
     /**
      * @param   view A DataView of an Uint8Array buffer holding MIDI encoding data
      * @param   offset The offset where the read operation should start
      * @returns The MIDI message decoded from the DataView
      */
-    (view: DataView, offset: number): API.MidiMessage<T>;
+    (view: DataView, offset: number): API.Message<T>;
 }
 
 /**
  * @internal
  */
-export interface MidiDataSerializer<T extends API.MidiStatus> {
+export interface MidiDataSerializer<T extends API.Status> {
     /**
      * @param data A DataView holding the Uint8Array buffer to write in
      * @param message The message to serialize to the DataView
      * @returns The number of bytes written to the DataView
      */
-    serialize(view: DataView, offset: number, message: API.MidiData[T]): void;
+    serialize(view: DataView, offset: number, message: API.Data[T]): void;
 }
 
 /**
  * @internal
  */
-export interface MidiMessageWriter<T extends API.MidiStatus> {
+export interface MidiMessageWriter<T extends API.Status> {
     /**
      * @internal
      * @param message: A noon formatted MIDI message
      * @returns The MIDI message as a MIDI encoded Uint8Array
      */
-    (message: API.MidiMessage<T>): Uint8Array;
+    (message: API.Message<T>): Uint8Array;
 }
 
 /**
@@ -80,7 +80,7 @@ export interface StatusEncoder {
      * @param channel The MIDI channel to add to the MIDI status in case of a channel message
      * @returns The actual message status deduced from status and channel
      */
-    (status: API.MidiStatus, channel?: number): number;
+    (status: API.Status, channel?: number): number;
 }
 
 /**
@@ -94,7 +94,7 @@ export interface StatusEncoder {
 export class RunningStatus {
     static #instance: RunningStatus;
 
-    public status: API.MidiStatus;
+    public status: API.Status;
     public channel: number;
 
     private constructor() {

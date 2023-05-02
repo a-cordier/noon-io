@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as API from "../api/index.js";
-import { messageStream } from "../internal/rx.js";
+import { Stream } from "../stream/index.js";
 
 import { WRITERS } from "./writers.js";
 
@@ -33,12 +33,12 @@ function defaultOpts() {
 }
 
 export function write(
-    message: API.MidiMessage<API.MidiStatus>,
+    message: API.Message<API.Status>,
     opts = defaultOpts(),
 ): Uint8Array {
     if (WRITERS.has(message.status)) {
         if (opts.publish) {
-            messageStream.next(message);
+            Stream.next(message);
         }
         const write = WRITERS.get(message.status);
         return write(message);
@@ -47,7 +47,7 @@ export function write(
 }
 
 export function writer(opts = defaultOpts()) {
-    return (message: API.MidiMessage<API.MidiStatus>) => write(message, opts);
+    return (message: API.Message<API.Status>) => write(message, opts);
 }
 
 /**
@@ -112,7 +112,7 @@ export function channel(channel: number): ChannelMessageFactory {
     return {
         noteOn(value: number, velocity = 64): Uint8Array {
             return write({
-                status: API.MidiStatus.NOTE_ON,
+                status: API.Status.NOTE_ON,
                 channel,
                 data: {
                     value,
@@ -122,7 +122,7 @@ export function channel(channel: number): ChannelMessageFactory {
         },
         noteOff(value: number): Uint8Array {
             return write({
-                status: API.MidiStatus.NOTE_OFF,
+                status: API.Status.NOTE_OFF,
                 channel,
                 data: {
                     value,
@@ -132,7 +132,7 @@ export function channel(channel: number): ChannelMessageFactory {
         },
         controlChange(control: number, value: number): Uint8Array {
             return write({
-                status: API.MidiStatus.CONTROL_CHANGE,
+                status: API.Status.CONTROL_CHANGE,
                 channel,
                 data: {
                     control,
@@ -142,7 +142,7 @@ export function channel(channel: number): ChannelMessageFactory {
         },
         bankSelectMSB(value: number): Uint8Array {
             return write({
-                status: API.MidiStatus.CONTROL_CHANGE,
+                status: API.Status.CONTROL_CHANGE,
                 channel,
                 data: {
                     control: 0,
@@ -152,7 +152,7 @@ export function channel(channel: number): ChannelMessageFactory {
         },
         bankSelectLSB(value: number): Uint8Array {
             return write({
-                status: API.MidiStatus.CONTROL_CHANGE,
+                status: API.Status.CONTROL_CHANGE,
                 channel,
                 data: {
                     control: 32,
@@ -162,7 +162,7 @@ export function channel(channel: number): ChannelMessageFactory {
         },
         programChange(value: number): Uint8Array {
             return write({
-                status: API.MidiStatus.PROGRAM_CHANGE,
+                status: API.Status.PROGRAM_CHANGE,
                 channel,
                 data: {
                     value,
