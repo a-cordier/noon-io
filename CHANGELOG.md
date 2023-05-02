@@ -1,5 +1,12 @@
 
 
+# 0.2.0 (2023-05-02)
+
+
+### Features
+
+* add midi message type aliases ([26ebaf2](https://github.com/a-cordier/noon-io/commit/26ebaf2ad056fbb9a8223f50f2ad782486a03573))
+
 ## 0.1.3 (2023-05-02)
 
 ## 0.1.2 (2023-04-30)
