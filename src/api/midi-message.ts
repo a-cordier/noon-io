@@ -16,6 +16,32 @@
 import { MidiStatus } from "./midi-status.js";
 
 /**
+ * The 16 MIDI channels numbered from 0 to 15.
+ */
+export type MidiChannel =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15;
+
+/**
+ * The MIDI channel 16 is reserved for Omni channel mode.
+ */
+export type MidiOmniChannel = 16;
+
+/**
  * Associates each MIDI status with the definition of its data bytes.
  *
  * This type is essentially used internally to infer the data carried by a MIDI message
