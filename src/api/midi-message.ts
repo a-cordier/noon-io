@@ -145,3 +145,23 @@ export interface VariableLengthValue extends NumberValue {
      */
     offset: number;
 }
+
+export type ControlChangeMessage = MidiMessage<MidiStatus.CONTROL_CHANGE>;
+export type NoteMessage = MidiMessage<MidiStatus.NOTE_ON | MidiStatus.NOTE_OFF>;
+export type NoteOnMessage = MidiMessage<MidiStatus.NOTE_ON>;
+export type NoteOffMessage = MidiMessage<MidiStatus.NOTE_OFF>;
+export type NoteAfterTouchMessage = MidiMessage<MidiStatus.NOTE_AFTER_TOUCH>;
+export type ChannelAfterTouchMessage = MidiMessage<MidiStatus.CHANNEL_AFTER_TOUCH>;
+export type ProgramChangeMessage = MidiMessage<MidiStatus.PROGRAM_CHANGE>;
+export type PitchBendMessage = MidiMessage<MidiStatus.PITCH_BEND>;
+export type SysexMessage = MidiMessage<MidiStatus.SYSEX>;
+export type TimingClockMessage = MidiMessage<MidiStatus.TIMING_CLOCK>;
+export type StartMessage = MidiMessage<MidiStatus.START>;
+export type ContinueMessage = MidiMessage<MidiStatus.CONTINUE>;
+export type StopMessage = MidiMessage<MidiStatus.STOP>;
+export type ActiveSendingMessage = MidiMessage<MidiStatus.ACTIVE_SENDING>;
+export type SystemResetMessage = MidiMessage<MidiStatus.SYSTEM_RESET>;
+export type MtcMessage = MidiMessage<MidiStatus.MTC>;
+export type SongPositionMessage = MidiMessage<MidiStatus.SONG_POSITION>;
+export type SongSelectMessage = MidiMessage<MidiStatus.SONG_SELECT>;
+export type TuneRequestMessage = MidiMessage<MidiStatus.TUNE_REQUEST>;
