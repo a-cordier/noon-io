@@ -27,7 +27,7 @@ npm i noon-io
 Send a A4 `NOTE ON` message on all available MIDI outputs
 
 ```typescript
-import * as NIO from 'noon-io';
+import * as MIDI from 'noon-io';
 
 // Gain access to the Web MIDI API
 const midiAccess = await navigator.requestMIDIAccess();
@@ -35,14 +35,14 @@ const midiAccess = await navigator.requestMIDIAccess();
 // Send a Note On message over all available outputs on channel 2
 for (const output of midiAccess.outputs.values()) {
     const noteOnMessage = {
-        status: NIO.MidiStatus.NOTE_ON,
+        status: MIDI.Status.NOTE_ON,
         channel: 2,
         data: {
             value: 69, // A4
             velocity: 127
         }
     };
-    output.send(NIO.write(noteOnMessage));
+    output.send(MIDI.write(noteOnMessage));
 }
 ```
 
@@ -52,11 +52,11 @@ For one dedicated channel, noon-io offers a more concise way of writing messages
 
 ```typescript
 // send a CC of 80 for control 71
-output.send(NIO.channel(2).controlChange(71, 80));
+output.send(MIDI.channel(2).controlChange(71, 80));
 // send a A4 note on message with a velocity of 120
-output.send(NIO.channel(2).noteOn(69, 120));
+output.send(MIDI.channel(2).noteOn(69, 120));
 // send the subsequent note off message for our A4 note
-output.send(NIO.channel(2).noteOff(69));
+output.send(MIDI.channel(2).noteOff(69));
 ```
 
 For more information about noon-io factories, you can checkout this [documentation](https://a-cordier.github.io/noon-io/docs/interfaces/ChannelMessageFactory.html)
@@ -64,14 +64,14 @@ For more information about noon-io factories, you can checkout this [documentati
 ## 📥 Read MIDI messages
 
 ```typescript
-import * as NIO from 'noon-io';
+import * as MIDI from 'noon-io';
 
 // Gain access to the Web MIDI API
 const midiAccess = await navigator.requestMIDIAccess();
 
-// Bind NIO reader to all midi inputs
+// Bind MIDI reader to all midi inputs
 for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = NIO.read;
+    input.onmidimessage = MIDI.read;
 }
 ```
 
@@ -82,12 +82,12 @@ in order to populate the `meta` property of the message with application specifi
 in order to implement custom logic when subscribing to the message.
 
 ```typescript
+// example: read current UI state to check if MIDI learning is enabled
 input.onmidimessage = MIDI.reader({
     decorators: {
-        [MIDI.Status.CONTROL_CHANGE](message: MIDI.Messages.ControlChange) {
+        [MIDI.Status.CONTROL_CHANGE](message) {
             return {
-            isMidiLearning: currentLearnerID !== MidiControlID.NONE,
-            controlID: controlMap.get(message.data.control)
+                isMidiLearning: isMidiLearning() 
             };
         }
     },
@@ -99,32 +99,30 @@ input.onmidimessage = MIDI.reader({
 Once read, messages are exposed through the `stream` rx Subject.
 
 ```typescript
-import * as NIO from 'noon-io';
+import * as MIDI from 'noon-io';
 
-NIO.stream.subscribe(message => {
+MIDI.stream.subscribe(message => {
     console.log(message.meta); // log the meta object populated by the custom decorator function
 });
 
 // Gain access to the Web MIDI API
 const midiAccess = await navigator.requestMIDIAccess();
 
-// Bind NIO reader to all midi inputs
+// Bind MIDI reader to all midi inputs
 for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = NIO.read; // message is handle by the subscriber
+    input.onmidimessage = MIDI.read; // message is handle by the subscriber
 }
 ```
 
 # 🕒 Filtering messages
 
-In addition to the message stream, NIO provides a convenient `observe` function,
+In addition to the message stream, MIDI provides a convenient `observe` function,
 which will return a observable of MIDI messages matching the given MIDI status and an optional MIDI chanel.
 
 ```typescript
-import * as NIO from 'noon-io';
+import * as MIDI from 'noon-io';
 
-const { MidiStatus, observe } = NIO;
-
-observe(MidiStatus.CONTROL_CHANGE, 1)
+MIDI.observe(MIDI.Status.CONTROL_CHANGE, 1)
     .subscribe(message => {
         // handle control change message for channel 1
     });
@@ -138,14 +136,14 @@ sending the actual program change.
 (The following has been tested on a Dave Smith Instruments Mopho device)
 
 ```typescript
-import * as NIO from 'noon-io';
+import * as MIDI from 'noon-io';
 /*
  * Start Bank Select message
  * Selects banks 2 (bank 1 is 0) for channel 2
  */
 output.send(
-    NIO.writeMidiMessage({
-        status: NIO.MidiStatus.CONTROL_CHANGE,
+    MIDI.writeMidiMessage({
+        status: MIDI.Status.CONTROL_CHANGE,
         channel: 2,
         data: {
             control: 0, // bank select MSB (always 0)
@@ -155,8 +153,8 @@ output.send(
 );
 
 output.send(
-    NIO.writeMidiMessage({
-        status: NIO.MidiStatus.CONTROL_CHANGE,
+    MIDI.writeMidiMessage({
+        status: MIDI.Status.CONTROL_CHANGE,
         channel: 2,
         data: {
             control: 0, // bank select LSB (always 32)
@@ -170,8 +168,8 @@ output.send(
  * let's select a random program
  */
 output.send(
-    NIO.writeMidiMessage({
-        status: NIO.MidiStatus.PROGRAM_CHANGE,
+    MIDI.writeMidiMessage({
+        status: MIDI.Status.PROGRAM_CHANGE,
         channel: 2,
         data: {
             value: Math.ceil(Math.random() * 127),
@@ -185,10 +183,10 @@ Or using the `bankSelectMSB` and `bankSelectLSB` factories provided by noon-io
 
 ```typescript
 // Select bank 1
-output.send(NIO.channel(2).bankSelectMSB(0));
-output.send(NIO.channel(2).bankSelectLSB(0));
+output.send(MIDI.channel(2).bankSelectMSB(0));
+output.send(MIDI.channel(2).bankSelectLSB(0));
 // Select program 109 from bank 1
-output.send(NIO.channel(2).programChange(Math.ceil(Math.random() * 127)));
+output.send(MIDI.channel(2).programChange(Math.ceil(Math.random() * 127)));
 ```
 
 # 🚧 Supported Messages
