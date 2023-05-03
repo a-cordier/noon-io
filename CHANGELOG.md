@@ -1,5 +1,12 @@
 
 
+## 0.5.3 (2023-05-03)
+
+
+### Bug Fixes
+
+* rename data type alias to avoid confusion ([253a225](https://github.com/a-cordier/noon-io/commit/253a2257d4e0616f4a8381da8ce8f9d13cfd119a))
+
 ## 0.5.2 (2023-05-03)
 
 ## 0.5.1 (2023-05-03)
