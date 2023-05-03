@@ -1,5 +1,12 @@
 
 
+## 0.5.1 (2023-05-03)
+
+
+### Bug Fixes
+
+* use shorter message names ([66b7c7f](https://github.com/a-cordier/noon-io/commit/66b7c7f7d44e41bcae7949010db19ba67d860be6))
+
 # 0.5.0 (2023-05-03)
 
 
