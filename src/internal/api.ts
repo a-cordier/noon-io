@@ -19,7 +19,7 @@ import * as API from "../api/index.js";
  * @internal
  */
 export interface DeserializationResult<T extends API.Status> {
-    data?: API.Data[T] | never;
+    data?: API.DataTypes[T] | never;
     offset: number;
 }
 
@@ -56,7 +56,7 @@ export interface MidiDataSerializer<T extends API.Status> {
      * @param message The message to serialize to the DataView
      * @returns The number of bytes written to the DataView
      */
-    serialize(view: DataView, offset: number, message: API.Data[T]): void;
+    serialize(view: DataView, offset: number, message: API.DataTypes[T]): void;
 }
 
 /**
