@@ -1,5 +1,12 @@
 
 
+# 0.4.0 (2023-05-03)
+
+
+### Features
+
+* use more concise naming ([d9e3b17](https://github.com/a-cordier/noon-io/commit/d9e3b1775b83f4f3f8087dfaca1a3447910f01e5))
+
 # 0.3.0 (2023-05-02)
 
 
