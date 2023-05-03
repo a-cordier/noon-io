@@ -104,14 +104,6 @@ import * as MIDI from 'noon-io';
 MIDI.stream.subscribe(message => {
     console.log(message.meta); // log the meta object populated by the custom decorator function
 });
-
-// Gain access to the Web MIDI API
-const midiAccess = await navigator.requestMIDIAccess();
-
-// Bind MIDI reader to all midi inputs
-for (const input of midiAccess.inputs.values()) {
-    input.onmidimessage = MIDI.read; // message is handle by the subscriber
-}
 ```
 
 # 🕒 Filtering messages
