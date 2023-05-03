@@ -1,5 +1,12 @@
 
 
+# 0.5.0 (2023-05-03)
+
+
+### Features
+
+* add shorthand types for messages ([9e0fcb2](https://github.com/a-cordier/noon-io/commit/9e0fcb2b0432251e18f90c66451f7f0f023066d8))
+
 # 0.4.0 (2023-05-03)
 
 
