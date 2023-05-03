@@ -31,7 +31,7 @@ export type OmniChannel = 16;
  * This type is essentially used internally to infer the data carried by a MIDI message
  * from its status.
  */
-export type Data = {
+export type DataTypes = {
     /**
      * Data definition for a Note Off message
      * @see Status.NOTE_OFF
@@ -161,7 +161,7 @@ export interface Message<T extends Status> {
      * The actual data carried by the message
      * Can be empty for some system messages (e.g. a End Of Track message)
      */
-    data?: Data[T] | never;
+    data?: DataTypes[T] | never;
     /**
      * The meta data associated with the message
      * This can be used to store additional information about the message
