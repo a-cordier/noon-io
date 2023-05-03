@@ -75,6 +75,25 @@ for (const input of midiAccess.inputs.values()) {
 }
 ```
 
+## 🎨 Decorating MIDI messages
+
+The read function can be instantiated through the `reader` factory which takes an optional configuration object. This object allow to define one decorator function per MIDI status,
+in order to populate the `meta` property of the message with application specific data,
+in order to implement custom logic when subscribing to the message.
+
+```typescript
+input.onmidimessage = MIDI.reader({
+    decorators: {
+        [MIDI.Status.CONTROL_CHANGE](message: MIDI.Messages.ControlChange) {
+            return {
+            isMidiLearning: currentLearnerID !== MidiControlID.NONE,
+            controlID: controlMap.get(message.data.control)
+            };
+        }
+    },
+});
+```
+
 # 🕒 Subscribing to the messages stream
 
 Once read, messages are exposed through the `stream` rx Subject.
@@ -83,7 +102,7 @@ Once read, messages are exposed through the `stream` rx Subject.
 import * as NIO from 'noon-io';
 
 NIO.stream.subscribe(message => {
-    console.log(message);
+    console.log(message.meta); // log the meta object populated by the custom decorator function
 });
 
 // Gain access to the Web MIDI API
@@ -98,16 +117,16 @@ for (const input of midiAccess.inputs.values()) {
 # 🕒 Filtering messages
 
 In addition to the message stream, NIO provides a convenient `observe` function,
-which will return a observable of MIDI messages matching the given MIDI status.
+which will return a observable of MIDI messages matching the given MIDI status and an optional MIDI chanel.
 
 ```typescript
 import * as NIO from 'noon-io';
 
 const { MidiStatus, observe } = NIO;
 
-observe(MidiStatus.CONTROL_CHANGE)
+observe(MidiStatus.CONTROL_CHANGE, 1)
     .subscribe(message => {
-        // handle control change message
+        // handle control change message for channel 1
     });
 ```
 
