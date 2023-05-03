@@ -14,4 +14,5 @@
  * limitations under the License.
  */
 export * from "./message.js";
+export * from "./messages.js";
 export * from "./status.js";

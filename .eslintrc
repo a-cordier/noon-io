@@ -11,6 +11,7 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
-        "semi": "error"
+        "semi": "error",
+        "@typescript-eslint/no-namespace": "off"
       }
   }
