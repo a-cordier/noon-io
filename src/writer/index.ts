@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as API from "../api/index.js";
-import { Stream } from "../stream/index.js";
+import { Rx } from "../rx/index.js";
 
 import { WRITERS } from "./writers.js";
 
@@ -38,7 +38,7 @@ export function write(
 ): Uint8Array {
     if (WRITERS.has(message.status)) {
         if (opts.publish) {
-            Stream.next(message);
+            Rx.next(message);
         }
         const write = WRITERS.get(message.status);
         return write(message);
