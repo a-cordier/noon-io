@@ -94,7 +94,7 @@ input.onmidimessage = MIDI.reader({
 });
 ```
 
-# 🕒 Subscribing to the messages stream
+# ⏳ Subscribing to the messages stream
 
 Once read, messages are exposed through the `stream` rx Subject.
 
@@ -106,7 +106,7 @@ MIDI.stream.subscribe(message => {
 });
 ```
 
-# 🕒 Filtering messages
+# ⏳ Filtering messages
 
 In addition to the message stream, MIDI provides a convenient `observe` function,
 which will return a observable of MIDI messages matching the given MIDI status and an optional MIDI chanel.
