@@ -159,7 +159,7 @@ export interface Message<T extends Status> {
 
     /**
      * The actual data carried by the message
-     * Can be empty for some system messages (e.g. a End Of Track message)
+     * Can be empty for some system messages (e.g. a real time messages)
      */
     data?: DataTypes[T] | never;
     /**
