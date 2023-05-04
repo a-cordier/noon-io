@@ -1,5 +1,12 @@
 
 
+## 0.5.6 (2023-05-04)
+
+
+### Bug Fixes
+
+* use proper name for polyphonic aftertouch ([ed750e4](https://github.com/a-cordier/noon-io/commit/ed750e4ec04a38aa254668bf7c84d9bc334cd512))
+
 ## 0.5.5 (2023-05-03)
 
 ## 0.5.4 (2023-05-03)
