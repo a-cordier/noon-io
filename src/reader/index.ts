@@ -108,7 +108,7 @@ function defaultOpts(): ReaderOpts {
             [API.Status.START]: noopDecorator<API.Status.START>,
             [API.Status.CONTINUE]: noopDecorator<API.Status.CONTINUE>,
             [API.Status.STOP]: noopDecorator<API.Status.STOP>,
-            [API.Status.ACTIVE_SENDING]: noopDecorator<API.Status.ACTIVE_SENDING>,
+            [API.Status.ACTIVE_SENSING]: noopDecorator<API.Status.ACTIVE_SENSING>,
             [API.Status.SYSTEM_RESET]: noopDecorator<API.Status.SYSTEM_RESET>,
             [API.Status.MTC]: noopDecorator<API.Status.MTC>,
             [API.Status.SYSEX]: noopDecorator<API.Status.SYSEX>,

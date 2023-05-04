@@ -102,9 +102,9 @@ export type DataTypes = {
     [Status.STOP]: void;
     /**
      * Data definition for an Active Sending message
-     * @see Status.ACTIVE_SENDING
+     * @see Status.ACTIVE_SENSING
      */
-    [Status.ACTIVE_SENDING]: void;
+    [Status.ACTIVE_SENSING]: void;
     /**
      * Data definition for a System Reset message
      * @see Status.SYSTEM_RESET

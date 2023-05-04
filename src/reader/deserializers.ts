@@ -196,13 +196,13 @@ export class ContinueDeserializer
     }
 }
 
-export class ActiveSendingDeserializer
-    implements LIB.MidiDataDeserializer<API.Status.ACTIVE_SENDING>
+export class ActiveSensingDeserializer
+    implements LIB.MidiDataDeserializer<API.Status.ACTIVE_SENSING>
 {
     deserialize(
         _: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.Status.ACTIVE_SENDING> {
+    ): LIB.DeserializationResult<API.Status.ACTIVE_SENSING> {
         return {
             offset: offset + 1,
         };

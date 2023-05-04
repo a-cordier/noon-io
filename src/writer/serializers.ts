@@ -88,8 +88,8 @@ export class ContinueSerializer implements LIB.MidiDataSerializer<API.Status.CON
     serialize(view: DataView, offset: number) {}
 }
 
-export class ActiveSendingSerializer
-    implements LIB.MidiDataSerializer<API.Status.ACTIVE_SENDING>
+export class ActiveSensingSerializer
+    implements LIB.MidiDataSerializer<API.Status.ACTIVE_SENSING>
 {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     serialize(view: DataView, offset: number) {}

@@ -126,10 +126,10 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.Status.ACTIVE_SENDING,
-    createWriter<API.Status.ACTIVE_SENDING>(
+    API.Status.ACTIVE_SENSING,
+    createWriter<API.Status.ACTIVE_SENSING>(
         LIB.systemStatusEncoder,
-        new IMP.ActiveSendingSerializer(),
+        new IMP.ActiveSensingSerializer(),
         1,
     ),
 );

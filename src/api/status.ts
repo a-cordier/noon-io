@@ -88,7 +88,7 @@ export enum Status {
      *
      * @category System Real Time Message
      */
-    ACTIVE_SENDING = 0xfe,
+    ACTIVE_SENSING = 0xfe,
     /**
      * Commands all devices in a system to return to their initialized, power-up condition
      *
@@ -155,7 +155,7 @@ export type RealTimeStatus =
     | Status.STOP
     | Status.CONTINUE
     | Status.SYSTEM_RESET
-    | Status.ACTIVE_SENDING;
+    | Status.ACTIVE_SENSING;
 
 export type SystemCommonStatus =
     | Status.MTC
