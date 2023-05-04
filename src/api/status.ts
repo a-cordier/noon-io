@@ -112,7 +112,7 @@ export enum Status {
      *
      * @category Channel Message
      */
-    NOTE_AFTER_TOUCH = 0x0a,
+    POLYPHONIC_AFTER_TOUCH = 0x0a,
     /**
      * Aftertouch will affect all notes playing in that channel
      *

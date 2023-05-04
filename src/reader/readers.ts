@@ -51,10 +51,10 @@ READERS.set(
 );
 
 READERS.set(
-    API.Status.NOTE_AFTER_TOUCH,
-    createReader<API.Status.NOTE_AFTER_TOUCH>(
-        API.Status.NOTE_AFTER_TOUCH,
-        new IMP.NoteAfterTouchDeserializer(),
+    API.Status.POLYPHONIC_AFTER_TOUCH,
+    createReader<API.Status.POLYPHONIC_AFTER_TOUCH>(
+        API.Status.POLYPHONIC_AFTER_TOUCH,
+        new IMP.PolyphonicAfterTouchDeserializer(),
     ),
 );
 

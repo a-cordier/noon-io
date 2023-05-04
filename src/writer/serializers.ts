@@ -49,10 +49,10 @@ export class PitchBendSerializer
     }
 }
 
-export class NoteAfterTouchSerializer
-    implements LIB.MidiDataSerializer<API.Status.NOTE_AFTER_TOUCH>
+export class PolyphonicAfterTouchSerializer
+    implements LIB.MidiDataSerializer<API.Status.POLYPHONIC_AFTER_TOUCH>
 {
-    serialize(view: DataView, offset: number, afterTouch: API.NoteAfterTouch) {
+    serialize(view: DataView, offset: number, afterTouch: API.PolyphonicAfterTouch) {
         view.setUint8(offset, afterTouch.note);
         view.setUint8(offset + 1, afterTouch.value);
     }

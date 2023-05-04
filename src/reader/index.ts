@@ -96,7 +96,8 @@ function defaultOpts(): ReaderOpts {
             [API.Status.NOTE_OFF]: noopDecorator<API.Status.NOTE_OFF>,
             [API.Status.CONTROL_CHANGE]: noopDecorator<API.Status.CONTROL_CHANGE>,
             [API.Status.PROGRAM_CHANGE]: noopDecorator<API.Status.PROGRAM_CHANGE>,
-            [API.Status.NOTE_AFTER_TOUCH]: noopDecorator<API.Status.NOTE_AFTER_TOUCH>,
+            [API.Status.POLYPHONIC_AFTER_TOUCH]:
+                noopDecorator<API.Status.POLYPHONIC_AFTER_TOUCH>,
             [API.Status.CHANNEL_AFTER_TOUCH]:
                 noopDecorator<API.Status.CHANNEL_AFTER_TOUCH>,
             [API.Status.PITCH_BEND]: noopDecorator<API.Status.PITCH_BEND>,

@@ -28,8 +28,8 @@ test("NoteDeserializer should return note A4 (69) with a velocity of 80 and read
     t.is(2, result.offset);
 });
 
-test("NoteAfterTouchDeserializer should return an aftertouch of 80 for note 69 and read two bytes", (t: ExecutionContext<unknown>) => {
-    const deserializer = new DESER.NoteAfterTouchDeserializer();
+test("PolyphonicAfterTouchDeserializer should return an aftertouch of 80 for note 69 and read two bytes", (t: ExecutionContext<unknown>) => {
+    const deserializer = new DESER.PolyphonicAfterTouchDeserializer();
     const bytes = [69, 80];
     const view = UTILS.getDataView(bytes);
     const result = deserializer.deserialize(view, 0);
