@@ -64,7 +64,7 @@ export function isSystemMessage(view: DataView, offset: number) {
         case API.Status.STOP:
         case API.Status.CONTINUE:
         case API.Status.SYSTEM_RESET:
-        case API.Status.ACTIVE_SENDING:
+        case API.Status.ACTIVE_SENSING:
         case API.Status.SYSEX:
             return true;
         default:

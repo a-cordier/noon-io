@@ -114,10 +114,10 @@ READERS.set(
 );
 
 READERS.set(
-    API.Status.ACTIVE_SENDING,
-    createReader<API.Status.ACTIVE_SENDING>(
-        API.Status.ACTIVE_SENDING,
-        new IMP.ActiveSendingDeserializer(),
+    API.Status.ACTIVE_SENSING,
+    createReader<API.Status.ACTIVE_SENSING>(
+        API.Status.ACTIVE_SENSING,
+        new IMP.ActiveSensingDeserializer(),
     ),
 );
 

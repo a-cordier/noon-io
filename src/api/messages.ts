@@ -33,7 +33,7 @@ export namespace Messages {
     export type Start = Message<Status.START>;
     export type Stop = Message<Status.STOP>;
     export type Continue = Message<Status.CONTINUE>;
-    export type ActiveSending = Message<Status.ACTIVE_SENDING>;
+    export type ActiveSensing = Message<Status.ACTIVE_SENSING>;
     export type SystemReset = Message<Status.SYSTEM_RESET>;
     export type SongSelect = Message<Status.SONG_SELECT>;
     export type SongPosition = Message<Status.SONG_POSITION>;
