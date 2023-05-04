@@ -62,10 +62,10 @@ WRITERS.set(
 );
 
 WRITERS.set(
-    API.Status.NOTE_AFTER_TOUCH,
-    createWriter<API.Status.NOTE_AFTER_TOUCH>(
+    API.Status.POLYPHONIC_AFTER_TOUCH,
+    createWriter<API.Status.POLYPHONIC_AFTER_TOUCH>(
         LIB.channelStatusEncoder,
-        new IMP.NoteAfterTouchSerializer(),
+        new IMP.PolyphonicAfterTouchSerializer(),
         3,
     ),
 );

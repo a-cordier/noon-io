@@ -25,7 +25,7 @@ export namespace Messages {
     export type NoteOn = Message<Status.NOTE_ON>;
     export type NoteOff = Message<Status.NOTE_OFF>;
     export type PitchBend = Message<Status.PITCH_BEND>;
-    export type NoteAfterTouch = Message<Status.NOTE_AFTER_TOUCH>;
+    export type NoteAfterTouch = Message<Status.POLYPHONIC_AFTER_TOUCH>;
     export type ChannelAfterTouch = Message<Status.CHANNEL_AFTER_TOUCH>;
     export type ProgramChange = Message<Status.PROGRAM_CHANGE>;
     export type Sysex = Message<Status.SYSEX>;

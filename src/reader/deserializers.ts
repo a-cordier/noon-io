@@ -91,13 +91,13 @@ export class ProgramChangeDeserializer
     }
 }
 
-export class NoteAfterTouchDeserializer
-    implements LIB.MidiDataDeserializer<API.Status.NOTE_AFTER_TOUCH>
+export class PolyphonicAfterTouchDeserializer
+    implements LIB.MidiDataDeserializer<API.Status.POLYPHONIC_AFTER_TOUCH>
 {
     deserialize(
         view: DataView,
         offset: number,
-    ): LIB.DeserializationResult<API.Status.NOTE_AFTER_TOUCH> {
+    ): LIB.DeserializationResult<API.Status.POLYPHONIC_AFTER_TOUCH> {
         return {
             data: {
                 note: view.getUint8(offset),

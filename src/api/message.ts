@@ -58,10 +58,10 @@ export type DataTypes = {
     [Status.PITCH_BEND]: PitchBend;
     /**
      * Data definition for a Note Aftertouch message
-     * @see Status.NOTE_AFTER_TOUCH
+     * @see Status.POLYPHONIC_AFTER_TOUCH
      * @see PitchBend
      */
-    [Status.NOTE_AFTER_TOUCH]: NoteAfterTouch;
+    [Status.POLYPHONIC_AFTER_TOUCH]: PolyphonicAfterTouch;
     /**
      * Data definition for a Channel Aftertouch message
      * @see Status.CHANNEL_AFTER_TOUCH
@@ -101,7 +101,7 @@ export type DataTypes = {
      */
     [Status.STOP]: void;
     /**
-     * Data definition for an Active Sending message
+     * Data definition for an Active Sensing message
      * @see Status.ACTIVE_SENSING
      */
     [Status.ACTIVE_SENSING]: void;
@@ -213,7 +213,7 @@ export interface Note extends NumberValue {
 /**
  * For MIDI note after touch, value holds the amount of after touch to be processed
  */
-export interface NoteAfterTouch extends NumberValue {
+export interface PolyphonicAfterTouch extends NumberValue {
     note: number;
 }
 

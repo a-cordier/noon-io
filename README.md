@@ -194,7 +194,7 @@ output.send(MIDI.channel(2).programChange(Math.ceil(Math.random() * 127)));
 |PITCH BEND|✅|✅|Read and write have been tested on a MIDI port
 |CONTROL CHANGE|✅|✅|Read and write have been tested on a MIDI port
 |PROGRAM CHANGE|✅|✅|Read and write have been tested on a MIDI port
-|NOTE AFTER TOUCH|✅|✅|Both read and write have not been tested
+|POLYPHONIC AFTER TOUCH|✅|✅|Both read and write have not been tested
 |CHANNEL AFTER TOUCH|✅|✅|Both read and write have not been tested
 
 ## 🎛️ System Messages
@@ -206,7 +206,7 @@ output.send(MIDI.channel(2).programChange(Math.ceil(Math.random() * 127)));
 |STOP|✅|✅|Both read and write have not been tested
 |CONTINUE|✅|✅|Both read and write have not been tested
 |SYSTEM RESET|✅|✅|Both read and write have not been tested
-|ACTIVE SENDING|✅|✅|Both read and write have not been tested
+|ACTIVE SENSING|✅|✅|Both read and write have not been tested
 |SYSTEM EXCLUSIVE|✅|❌|Reader has not been tested, writer is not implemented
 |MIDI TIME CODE|❌|❌|Not Implemented
 |SONG POSITION|❌|❌|Not Implemented
