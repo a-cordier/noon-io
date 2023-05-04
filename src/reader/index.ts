@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import * as API from "../api/index.js";
-import * as LIB from "../internal/index.js";
+import * as INT from "../internal/index.js";
 
-import { Stream } from "../stream/index.js";
+import { Rx } from "../rx/index.js";
 
 import { READERS } from "./readers.js";
 
@@ -24,22 +24,22 @@ function readChannelMessage(
     view: DataView,
     offset: number,
 ): API.Message<API.Status> | null {
-    if (LIB.isRunningStatusChange(view, offset)) {
+    if (INT.isRunningStatusChange(view, offset)) {
         const rawStatus = view.getUint8(offset) >>> 4; // leftmost bits gives the status
         const rawChannel = view.getUint8(offset) & 0xf; // rightmost bits gives the channel (starting from 0)
         const status = rawStatus as API.Status;
         const channel = rawChannel + 1;
-        LIB.RunningStatus.instance.set({ channel, status });
+        INT.RunningStatus.instance.set({ channel, status });
         offset += 1;
     }
 
-    if (!READERS.has(LIB.RunningStatus.instance.status)) {
+    if (!READERS.has(INT.RunningStatus.instance.status)) {
         return null;
     }
 
-    const read = READERS.get(LIB.RunningStatus.instance.status);
+    const read = READERS.get(INT.RunningStatus.instance.status);
     const message = read(view, offset);
-    message.channel = LIB.RunningStatus.instance.channel;
+    message.channel = INT.RunningStatus.instance.channel;
 
     return message;
 }
@@ -132,7 +132,7 @@ export type MessageReader = (data: Uint8Array, opts?: ReaderOpts) => void;
 export function read(data: Uint8Array, partialOpts = {}): void {
     const opts = assignDefaultReaderOpts(partialOpts);
     const message = readMidi(data);
-    Stream.next(decorate(message, opts.decorators));
+    Rx.next(decorate(message, opts.decorators));
 }
 
 export function reader(partialOpts = {}): MessageReader {
@@ -141,7 +141,7 @@ export function reader(partialOpts = {}): MessageReader {
 
 function readMidi(data: Uint8Array): API.Message<API.Status> {
     const view = new DataView(data.buffer);
-    if (LIB.isSystemMessage(view, 0)) {
+    if (INT.isSystemMessage(view, 0)) {
         return readSystemMessage(view, 0);
     }
     return readChannelMessage(view, 0);

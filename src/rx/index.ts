@@ -16,13 +16,14 @@
 import { Subject, Observable, filter } from "rxjs";
 import * as API from "../api/index.js";
 
-export const Stream = new Subject<API.Message<API.Status>>();
+export const Rx = new Subject<API.Message<API.Status>>();
 
 export function observe(
     status: API.Status,
     channel?: API.Channel,
 ): Observable<API.Message<API.Status>> {
-    return Stream.pipe(
+    return Rx.pipe(
+        filter((message) => message !== null),
         filter((message) => {
             if (channel !== undefined) {
                 return message.status === status && message.channel === channel;
