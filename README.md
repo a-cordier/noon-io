@@ -96,19 +96,19 @@ input.onmidimessage = MIDI.reader({
 
 # ⏳ Subscribing to the messages stream
 
-Once read, messages are exposed through the `stream` rx Subject.
+Once read, messages are exposed through the `Rx` Subject.
 
 ```typescript
 import * as MIDI from 'noon-io';
 
-MIDI.stream.subscribe(message => {
+MIDI.Rx.subscribe(message => {
     console.log(message.meta); // log the meta object populated by the custom decorator function
 });
 ```
 
 # ⏳ Filtering messages
 
-In addition to the message stream, MIDI provides a convenient `observe` function,
+In addition to the message stream, noon-io provides a convenient `observe` function,
 which will return a observable of MIDI messages matching the given MIDI status and an optional MIDI chanel.
 
 ```typescript
